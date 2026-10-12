@@ -312,4 +312,49 @@ Key results so far:
 
     Phase 4 (distance metric) will quantify the spatial mismatch distribution
 
+Phase 2d — Anomaly Candidate Detection (v2 final)
+
+Purpose: Identify dark clusters in each diff image that could be spill signatures.
+
+Thresholds (final):
+
+    Contrast: cluster pixel < median − 5.0 dB
+
+    Minimum cluster size: 100 pixels (1 hectare at 10 m resolution)
+
+    Minimum cluster mean darkness: 5.0 dB below image median
+
+Results:
+Metric	Value
+Diff images processed	199
+Total candidate clusters	340
+Unique incidents with ≥1 cluster	34 / 62
+Post-incident clusters	238
+Pre-incident control clusters	102
+Post-incident rate	1.86 clusters / acquisition
+Control rate	1.44 clusters / acquisition
+Ratio (signal-to-noise)	1.29×
+
+Distance to reported coordinate:
+Percentile	Distance (m)
+Min	160
+25%	1,270
+Median	1,901
+75%	2,473
+90%	2,788
+Max	3,354
+
+Cluster area:
+Percentile	Pixels
+Min	100
+Median	152
+75%	247
+90%	507
+Max	7,806
+
+Interpretation: Detection rate in pre-incident controls is 77% of the post-incident rate. The detector cannot distinguish spill change from natural environmental variability at these thresholds. Median cluster distance from reported coordinate is 1.9 km — most clusters are near the AOI boundary, consistent with landscape features (rivers, channels) rather than spills near the reported coordinate.
+
+Decision: Retain v2 thresholds and report the result as-is. Do not tighten further — that would be p-hacking. The finding is that NOSDRA spills are not distinguishable from background at these scales.
+
+Comparison to v1: v1 (5th-percentile + 20-pixel min) produced 59,828 clusters with a 1.27× post/control ratio. v2 produced 340 clusters with a 1.29× ratio. The ratio is invariant to threshold tuning — the detector's selectivity changes, but its ability to separate signal from noise does not. This is quantitative evidence that the signal is not present.
 
