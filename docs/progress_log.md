@@ -357,4 +357,14 @@ Interpretation: Detection rate in pre-incident controls is 77% of the post-incid
 Decision: Retain v2 thresholds and report the result as-is. Do not tighten further — that would be p-hacking. The finding is that NOSDRA spills are not distinguishable from background at these scales.
 
 Comparison to v1: v1 (5th-percentile + 20-pixel min) produced 59,828 clusters with a 1.27× post/control ratio. v2 produced 340 clusters with a 1.29× ratio. The ratio is invariant to threshold tuning — the detector's selectivity changes, but its ability to separate signal from noise does not. This is quantitative evidence that the signal is not present.
+ 
 
+Phase 2e Complete — Pipeline Complete
+Class	Count
+OBSERVABLE	98
+UNOBSERVABLE_TERRESTRIAL	117
+UNOBSERVABLE_LOW_WIND	41
+UNKNOWN_HABITAT	5
+UNOBSERVABLE_NO_SAR	4
+UNOBSERVABLE_RAIN	1
+Total	266
