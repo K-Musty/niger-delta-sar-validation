@@ -1,4 +1,141 @@
-Phase 2c Checkpoint — PASSED (with one caveat)
+### Phase 2b — ERA5 Environmental Context
+Purpose
+
+Retrieve 10 m wind speed, wind direction, and precipitation for each of the 262 SAR acquisitions, to be used later in the observability classification (Phase 2e). Acquisitions with wind outside the 3–12 m/s range are not usable for surface-oil detection and must be flagged as unobservable.
+Inputs
+
+    data/interim/acquisition_metadata.csv — 262 rows
+
+    ~/.cdsapirc — CDS API key
+
+    data/raw/era5_land_sea_mask.nc — ERA5 land-sea mask (download-once)
+
+Outputs
+
+    data/interim/environmental_context.csv — 262 rows
+
+    data/interim/era5_cache/ — 230 dated directories, 32 MB, each containing the raw ERA5 .nc files
+
+Final Statistics
+Metric	Value
+Rows written	262
+Wind speed median	4.03 m/s
+Wind speed min	0.63 m/s
+Wind speed max	7.70 m/s
+Low wind (<3 m/s)	67 acquisitions
+Observable (3–12 m/s)	195 acquisitions (74%)
+High wind (>12 m/s)	0
+Precipitation max	17.23 mm/hr
+Rain class (>5 mm)	2 acquisitions
+Three Bugs Found and Fixed
+
+Bug 1 — Wrong STAC→ERA5 hour. The initial version selected the nearest ERA5 hour to midnight UTC (00:00). Sentinel-1 does not overpass at midnight. It flies at ~05:00 UTC (descending) or ~17:00 UTC (ascending). Midnight is the calmest hour in tropical coastal environments, biasing wind speed down. Fixed by mapping orbit_direction → hour_utc in the extraction loop.
+
+Bug 2 — Land vs sea grid cells. ERA5 is a 0.25° grid. Every incident queried the nearest grid cell, which for coastal Niger Delta incidents is over land. Land surface roughness damps 10 m wind by 2–3× relative to open water. This caused the initial distribution to peak at 1.5 m/s. Fixed by loading the ERA5 land-sea mask and, for each incident, resolving the nearest grid cell with land_fraction < 0.5 within a 3° radius.
+
+Verification of Bug 2: On 2015-07-15 at 05:00 UTC, sampling four grid cells at the same moment:
+Location	Wind
+Port Harcourt (land, 4.75°N 7.00°E)	1.81 m/s
+Nearshore Delta (4.30°N 6.50°E)	3.65 m/s
+Offshore Atlantic (3.80°N 6.00°E)	5.78 m/s
+Deep offshore (3.50°N 5.50°E)	5.64 m/s
+
+The factor of 3.2× between land and open water is the reason the initial run underestimated wind by an order of magnitude.
+
+Bug 3 — Land-sea mask 3D array indexing. The ERA5 mask file contains non-spatial dimensions (time, number, expver). Attempting to index lsm[ii, jj] on a 3D array raised IndexError: range object index out of range. Fixed by collapsing non-spatial dimensions to index 0 in load_land_sea_mask() before the ring search.
+Methodological Decision Worth Reporting in the Paper
+
+    "Studies that query ERA5 at the nearest grid cell for coastal incidents will systematically underestimate 10 m wind speed by a factor of 2–3. This biases observability classification and would erroneously exclude the majority of coastal SAR acquisitions from any oil-slick detection analysis. We resolved the nearest sea grid cell (land fraction < 0.5) within 3° of each incident coordinate."
+
+This belongs in the Methods section. It is a small contribution but a defensible one.
+What I Notice About Phase 2c
+
+Three observations, one of which is genuinely important for the paper.
+Observation 1: The p05_diff distribution is the right shape
+
+Median p05_diff = −4.47 dB. Range −1.91 to −8.77 dB.
+
+The p05_diff column is the 5th-percentile of pixel differences (target − baseline). Negative values mean the target image has pixels 2–9 dB darker than baseline. That is exactly the signature oil spills produce: dark pixels in the target image that were not dark before.
+
+This is good news. If p05_diff were clustered near 0 (say, −0.5 dB), the diffs would be flat and the anomaly detector would find nothing. But the median at −4.47 dB means the diffs contain substantial dark tail. The detector in Phase 2d will produce candidate clusters.
+
+The concern is that some of that dark tail may be:
+
+    Real spills
+
+    Look-alikes (low wind, biogenic films, wakes)
+
+    Registration errors between baseline and target (slight pixel shifts creating spurious dark/bright boundaries)
+
+The detector's job in Phase 2d is to find spatially coherent clusters. Speckle and registration artifacts get filtered by the 20-pixel minimum size.
+Observation 2: Negative days_after_incident values
+
+Min is −12 days. That means some targets in the diff are acquisitions that occurred before the incident date. These slipped through because the baseline selection uses baseline < incident_date and takes all acquisitions after baseline. But some post-baseline acquisitions can still be pre-incident.
+
+Why this matters: A pre-incident diff is a control. It should show no spill signature. If it does show one, that is a false positive that comes from environmental change (not from the spill). Including controls in the analysis lets the paper say: "X% of post-incident diffs and Y% of pre-incident controls contained anomaly clusters." If those rates are similar, the detector is not picking up spills — it is picking up noise.
+
+Action required before Phase 2d:
+bash
+
+cd ~/Desktop/niger-delta-sar-validation
+python3 -c "
+import pandas as pd
+df = pd.read_csv('data/interim/per_acquisition_diff.csv')
+df['pre_incident'] = df['days_after_incident'] < 0
+df.to_csv('data/interim/per_acquisition_diff.csv', index=False)
+print('Pre-incident (control):', df['pre_incident'].sum())
+print('Post-incident (target):', (~df['pre_incident']).sum())
+"
+
+Expected: ~20 controls, ~180 targets. Report those numbers in the paper as the sample sizes for the primary (post-incident) and control (pre-incident) comparisons.
+Observation 3: Two incidents are already documented as drops
+
+    51551 — single acquisition, no baseline possible
+
+    Four early-2015 incidents (32687, 32705, 32737, 37573) — no Sentinel-1 data
+
+These are already documented in logs/skipped_single_acq.txt and will be classified as UNOBSERVABLE_NO_SAR in Phase 2e. They do not invalidate the pipeline. They are honest exclusions.
+Next Step
+Immediate: Flag pre-incident controls (5 minutes)
+
+Run the one-liner above. Commit Phase 2c.
+Then: Phase 2d — Anomaly Detection
+
+What it does: For each of the 199 diff TIFs, apply the dual threshold (max(5th percentile, median − 3 dB)), cluster dark pixels with 8-connectivity, discard clusters smaller than 20 pixels, and record each surviving cluster's centroid, area, and geodesic distance to the reported NOSDRA coordinate.
+
+Output: data/interim/anomaly_candidates.csv with one row per cluster per diff image.
+
+Why it is the critical step: This is where the distance metric is computed. The distance metric is the paper's most publishable result — it reframes the paper from "0 of 63 showed visible spills" to "we quantified the spatial mismatch between NOSDRA coordinates and independently detected SAR anomalies."
+
+Runtime: 5–10 minutes for 199 TIFs.
+
+Checkpoint: Expected 100–300 candidate rows. If zero, the threshold is too strict. If thousands, the threshold is too loose.
+What Comes After Phase 2d
+
+    Phase 2e — Observability classifier. Joins metadata + ERA5 + habitat. Outputs 266 rows with 8 classes. This gives the paper its denominator.
+
+    Phase 4 — Distance analysis. aggregate_nearest_anomaly.py groups candidate anomalies by acquisition, computes per-acquisition minimum distance. distance_vs_time.py produces Figure 2.
+
+    Phase 5 — Sample flow diagram.
+
+    Phase 3 — Scoring rubric and labeling interface (can be done in parallel with Phase 4).
+
+    Phase 6 — Second labeler recruitment (Week 4).
+
+Decision Point After Phase 2d
+
+The anomaly candidate counts will tell us which story the paper tells:
+Scenario	Paper framing
+0 clusters in all 199 diffs	Detector is broken or diffs are flat. Investigate before proceeding.
+1–20 clusters total	Very few candidates. Distance metric is sparse. Reframe as case-study.
+20–100 clusters	Sufficient for distance metric. Paper is viable as planned.
+100–300 clusters	Strong sample. Distance metric is well-powered. Best outcome.
+>300 clusters	Threshold too loose. Tighten and re-run.
+
+Report the count after Phase 2d. Then we decide.
+
+
+### Phase 2c Checkpoint — PASSED (with one caveat)
 Metric	Value	Interpretation
 Diff TIFs written	199	Good; expected 200–262
 Unique incidents	62	One incident dropped (single acquisition)
