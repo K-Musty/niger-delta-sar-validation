@@ -1,0 +1,28 @@
+# Script:      03_query_acquisition_metadata.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/03_query_acquisition_metadata.py
+# Run at:      2026-10-12T20:31:08.153781
+# Elapsed:     370.4 s
+# Return code: 0
+
+## STDOUT
+Loaded 262 successful acquisitions
+Connected to STAC: https://stac.dataspace.copernicus.eu/v1
+Collection: sentinel-1-grd
+
+  [1/262] 48354 2016-05-05 → ascending, orbit=30, polar=VV,VH, inc=39.02
+  [2/262] 48354 2016-05-17 → ascending, orbit=30, polar=VV,VH, inc=39.03
+  [3/262] 51624 2016-09-14 → ascending, orbit=30, polar=VV,VH, inc=39.03
+  [50/262] 396191 2025-05-25 → descending, orbit=124, polar=VV,VH, inc=38.98
+  [100/262] 229281 2022-05-15 → ascending, orbit=103, polar=VV,VH, inc=39.1
+  [150/262] 290140 2024-01-12 → descending, orbit=22, polar=VV,VH, inc=39.01
+  [200/262] 142357 2018-10-10 → ascending, orbit=30, polar=VV,VH, inc=39.04
+  [250/262] 214890 2021-09-29 → ascending, orbit=103, polar=VV,VH, inc=39.06
+
+Saved 262 rows to /home/kmusty/Desktop/niger-delta-sar-validation/data/interim/acquisition_metadata.csv
+
+--- Checkpoint ---
+  orbit_direction populated: 262/262
+  incidence_angle populated: 262/262
+  Missing STAC matches: 0
+  orbit_direction values: ['ascending' 'descending']
+  incidence_angle range: [38.98, 39.1]

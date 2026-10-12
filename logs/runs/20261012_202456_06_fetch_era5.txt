@@ -1,0 +1,261 @@
+# Script:      06_fetch_era5.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/06_fetch_era5.py
+# Run at:      2026-10-12T20:31:30.966070
+# Elapsed:     22.8 s
+# Return code: 0
+
+## STDOUT
+Loaded 262 acquisitions from /home/kmusty/Desktop/niger-delta-sar-validation/data/interim/acquisition_metadata.csv
+Loading land-sea mask: /home/kmusty/Desktop/niger-delta-sar-validation/data/raw/era5_land_sea_mask.nc
+  Land-sea mask: (19, 25) cells, lat [4.00, 8.50], lon [3.50, 9.50]
+  Land fraction range: 0.000 to 1.000
+Resolved sea cells for 63 incidents
+Unique SAR dates: 230
+Cache dir: /home/kmusty/Desktop/niger-delta-sar-validation/data/interim/era5_cache
+
+[  1/230] cached 2015-07-15  (reanalysis-era5-single-levels)  ok
+[  2/230] cached 2015-07-27  (reanalysis-era5-single-levels)  ok
+[  3/230] cached 2015-09-13  (reanalysis-era5-single-levels)  ok
+[  4/230] cached 2015-09-25  (reanalysis-era5-single-levels)  ok
+[  5/230] cached 2015-10-07  (reanalysis-era5-single-levels)  ok
+[  6/230] cached 2015-12-18  (reanalysis-era5-single-levels)  ok
+[  7/230] cached 2015-12-30  (reanalysis-era5-single-levels)  ok
+[  8/230] cached 2016-03-11  (reanalysis-era5-single-levels)  ok
+[  9/230] cached 2016-03-18  (reanalysis-era5-single-levels)  ok
+[ 10/230] cached 2016-03-23  (reanalysis-era5-single-levels)  ok
+[ 11/230] cached 2016-03-30  (reanalysis-era5-single-levels)  ok
+[ 12/230] cached 2016-04-04  (reanalysis-era5-single-levels)  ok
+[ 13/230] cached 2016-04-16  (reanalysis-era5-single-levels)  ok
+[ 14/230] cached 2016-05-05  (reanalysis-era5-single-levels)  ok
+[ 15/230] cached 2016-05-17  (reanalysis-era5-single-levels)  ok
+[ 16/230] cached 2016-07-09  (reanalysis-era5-single-levels)  ok
+[ 17/230] cached 2016-09-14  (reanalysis-era5-single-levels)  ok
+[ 18/230] cached 2016-09-26  (reanalysis-era5-single-levels)  ok
+[ 19/230] cached 2016-10-25  (reanalysis-era5-single-levels)  ok
+[ 20/230] cached 2016-11-06  (reanalysis-era5-single-levels)  ok
+[ 21/230] cached 2016-11-18  (reanalysis-era5-single-levels)  ok
+[ 22/230] cached 2017-02-10  (reanalysis-era5-single-levels)  ok
+[ 23/230] cached 2017-02-22  (reanalysis-era5-single-levels)  ok
+[ 24/230] cached 2017-05-19  (reanalysis-era5-single-levels)  ok
+[ 25/230] cached 2017-05-24  (reanalysis-era5-single-levels)  ok
+[ 26/230] cached 2017-05-31  (reanalysis-era5-single-levels)  ok
+[ 27/230] cached 2017-06-05  (reanalysis-era5-single-levels)  ok
+[ 28/230] cached 2017-09-02  (reanalysis-era5-single-levels)  ok
+[ 29/230] cached 2017-09-14  (reanalysis-era5-single-levels)  ok
+[ 30/230] cached 2017-09-26  (reanalysis-era5-single-levels)  ok
+[ 31/230] cached 2017-10-08  (reanalysis-era5-single-levels)  ok
+[ 32/230] cached 2018-04-18  (reanalysis-era5-single-levels)  ok
+[ 33/230] cached 2018-04-20  (reanalysis-era5-single-levels)  ok
+[ 34/230] cached 2018-04-25  (reanalysis-era5-single-levels)  ok
+[ 35/230] cached 2018-04-30  (reanalysis-era5-single-levels)  ok
+[ 36/230] cached 2018-05-02  (reanalysis-era5-single-levels)  ok
+[ 37/230] cached 2018-05-07  (reanalysis-era5-single-levels)  ok
+[ 38/230] cached 2018-05-12  (reanalysis-era5-single-levels)  ok
+[ 39/230] cached 2018-06-24  (reanalysis-era5-single-levels)  ok
+[ 40/230] cached 2018-07-06  (reanalysis-era5-single-levels)  ok
+[ 41/230] cached 2018-07-11  (reanalysis-era5-single-levels)  ok
+[ 42/230] cached 2018-07-18  (reanalysis-era5-single-levels)  ok
+[ 43/230] cached 2018-07-23  (reanalysis-era5-single-levels)  ok
+[ 44/230] cached 2018-07-30  (reanalysis-era5-single-levels)  ok
+[ 45/230] cached 2018-08-04  (reanalysis-era5-single-levels)  ok
+[ 46/230] cached 2018-08-11  (reanalysis-era5-single-levels)  ok
+[ 47/230] cached 2018-08-16  (reanalysis-era5-single-levels)  ok
+[ 48/230] cached 2018-08-23  (reanalysis-era5-single-levels)  ok
+[ 49/230] cached 2018-10-03  (reanalysis-era5-single-levels)  ok
+[ 50/230] cached 2018-10-10  (reanalysis-era5-single-levels)  ok
+[ 51/230] cached 2018-10-15  (reanalysis-era5-single-levels)  ok
+[ 52/230] cached 2018-10-22  (reanalysis-era5-single-levels)  ok
+[ 53/230] cached 2018-10-27  (reanalysis-era5-single-levels)  ok
+[ 54/230] cached 2018-12-26  (reanalysis-era5-single-levels)  ok
+[ 55/230] cached 2019-01-02  (reanalysis-era5-single-levels)  ok
+[ 56/230] cached 2019-01-07  (reanalysis-era5-single-levels)  ok
+[ 57/230] cached 2019-01-14  (reanalysis-era5-single-levels)  ok
+[ 58/230] cached 2019-01-19  (reanalysis-era5-single-levels)  ok
+[ 59/230] cached 2019-01-21  (reanalysis-era5-single-levels)  ok
+[ 60/230] cached 2019-01-26  (reanalysis-era5-single-levels)  ok
+[ 61/230] cached 2019-01-31  (reanalysis-era5-single-levels)  ok
+[ 62/230] cached 2019-02-02  (reanalysis-era5-single-levels)  ok
+[ 63/230] cached 2019-02-07  (reanalysis-era5-single-levels)  ok
+[ 64/230] cached 2019-02-12  (reanalysis-era5-single-levels)  ok
+[ 65/230] cached 2019-03-03  (reanalysis-era5-single-levels)  ok
+[ 66/230] cached 2019-03-08  (reanalysis-era5-single-levels)  ok
+[ 67/230] cached 2019-03-15  (reanalysis-era5-single-levels)  ok
+[ 68/230] cached 2019-03-20  (reanalysis-era5-single-levels)  ok
+[ 69/230] cached 2019-03-27  (reanalysis-era5-single-levels)  ok
+[ 70/230] cached 2019-04-01  (reanalysis-era5-single-levels)  ok
+[ 71/230] cached 2019-07-20  (reanalysis-era5-single-levels)  ok
+[ 72/230] cached 2019-07-25  (reanalysis-era5-single-levels)  ok
+[ 73/230] cached 2019-08-01  (reanalysis-era5-single-levels)  ok
+[ 74/230] cached 2019-08-06  (reanalysis-era5-single-levels)  ok
+[ 75/230] cached 2019-08-11  (reanalysis-era5-single-levels)  ok
+[ 76/230] cached 2019-08-13  (reanalysis-era5-single-levels)  ok
+[ 77/230] cached 2019-08-18  (reanalysis-era5-single-levels)  ok
+[ 78/230] cached 2019-08-23  (reanalysis-era5-single-levels)  ok
+[ 79/230] cached 2019-08-25  (reanalysis-era5-single-levels)  ok
+[ 80/230] cached 2019-08-30  (reanalysis-era5-single-levels)  ok
+[ 81/230] cached 2019-09-04  (reanalysis-era5-single-levels)  ok
+[ 82/230] cached 2019-09-06  (reanalysis-era5-single-levels)  ok
+[ 83/230] cached 2019-09-11  (reanalysis-era5-single-levels)  ok
+[ 84/230] cached 2019-09-18  (reanalysis-era5-single-levels)  ok
+[ 85/230] cached 2019-10-10  (reanalysis-era5-single-levels)  ok
+[ 86/230] cached 2019-10-17  (reanalysis-era5-single-levels)  ok
+[ 87/230] cached 2019-10-22  (reanalysis-era5-single-levels)  ok
+[ 88/230] cached 2019-10-29  (reanalysis-era5-single-levels)  ok
+[ 89/230] cached 2019-11-03  (reanalysis-era5-single-levels)  ok
+[ 90/230] cached 2019-11-10  (reanalysis-era5-single-levels)  ok
+[ 91/230] cached 2019-11-17  (reanalysis-era5-single-levels)  ok
+[ 92/230] cached 2019-11-22  (reanalysis-era5-single-levels)  ok
+[ 93/230] cached 2019-11-27  (reanalysis-era5-single-levels)  ok
+[ 94/230] cached 2019-11-29  (reanalysis-era5-single-levels)  ok
+[ 95/230] cached 2019-12-04  (reanalysis-era5-single-levels)  ok
+[ 96/230] cached 2019-12-09  (reanalysis-era5-single-levels)  ok
+[ 97/230] cached 2019-12-16  (reanalysis-era5-single-levels)  ok
+[ 98/230] cached 2020-03-21  (reanalysis-era5-single-levels)  ok
+[ 99/230] cached 2020-03-26  (reanalysis-era5-single-levels)  ok
+[100/230] cached 2020-04-02  (reanalysis-era5-single-levels)  ok
+[101/230] cached 2020-04-07  (reanalysis-era5-single-levels)  ok
+[102/230] cached 2020-04-14  (reanalysis-era5-single-levels)  ok
+[103/230] cached 2020-07-19  (reanalysis-era5-single-levels)  ok
+[104/230] cached 2020-07-26  (reanalysis-era5-single-levels)  ok
+[105/230] cached 2020-07-31  (reanalysis-era5-single-levels)  ok
+[106/230] cached 2020-08-07  (reanalysis-era5-single-levels)  ok
+[107/230] cached 2020-08-12  (reanalysis-era5-single-levels)  ok
+[108/230] cached 2020-08-24  (reanalysis-era5-single-levels)  ok
+[109/230] cached 2020-08-29  (reanalysis-era5-single-levels)  ok
+[110/230] cached 2020-09-05  (reanalysis-era5-single-levels)  ok
+[111/230] cached 2020-09-10  (reanalysis-era5-single-levels)  ok
+[112/230] cached 2020-09-17  (reanalysis-era5-single-levels)  ok
+[113/230] cached 2020-11-04  (reanalysis-era5-single-levels)  ok
+[114/230] cached 2020-11-09  (reanalysis-era5-single-levels)  ok
+[115/230] cached 2020-11-16  (reanalysis-era5-single-levels)  ok
+[116/230] cached 2020-11-21  (reanalysis-era5-single-levels)  ok
+[117/230] cached 2020-11-28  (reanalysis-era5-single-levels)  ok
+[118/230] cached 2020-12-27  (reanalysis-era5-single-levels)  ok
+[119/230] cached 2021-01-03  (reanalysis-era5-single-levels)  ok
+[120/230] cached 2021-01-08  (reanalysis-era5-single-levels)  ok
+[121/230] cached 2021-01-15  (reanalysis-era5-single-levels)  ok
+[122/230] cached 2021-01-20  (reanalysis-era5-single-levels)  ok
+[123/230] cached 2021-02-27  (reanalysis-era5-single-levels)  ok
+[124/230] cached 2021-03-04  (reanalysis-era5-single-levels)  ok
+[125/230] cached 2021-03-11  (reanalysis-era5-single-levels)  ok
+[126/230] cached 2021-03-16  (reanalysis-era5-single-levels)  ok
+[127/230] cached 2021-03-23  (reanalysis-era5-single-levels)  ok
+[128/230] cached 2021-05-15  (reanalysis-era5-single-levels)  ok
+[129/230] cached 2021-05-20  (reanalysis-era5-single-levels)  ok
+[130/230] cached 2021-05-27  (reanalysis-era5-single-levels)  ok
+[131/230] cached 2021-06-01  (reanalysis-era5-single-levels)  ok
+[132/230] cached 2021-06-08  (reanalysis-era5-single-levels)  ok
+[133/230] cached 2021-07-02  (reanalysis-era5-single-levels)  ok
+[134/230] cached 2021-07-07  (reanalysis-era5-single-levels)  ok
+[135/230] cached 2021-07-14  (reanalysis-era5-single-levels)  ok
+[136/230] cached 2021-07-19  (reanalysis-era5-single-levels)  ok
+[137/230] cached 2021-07-26  (reanalysis-era5-single-levels)  ok
+[138/230] cached 2021-08-24  (reanalysis-era5-single-levels)  ok
+[139/230] cached 2021-08-26  (reanalysis-era5-single-levels)  ok
+[140/230] cached 2021-08-31  (reanalysis-era5-single-levels)  ok
+[141/230] cached 2021-09-05  (reanalysis-era5-single-levels)  ok
+[142/230] cached 2021-09-07  (reanalysis-era5-single-levels)  ok
+[143/230] cached 2021-09-12  (reanalysis-era5-single-levels)  ok
+[144/230] cached 2021-09-17  (reanalysis-era5-single-levels)  ok
+[145/230] cached 2021-09-19  (reanalysis-era5-single-levels)  ok
+[146/230] cached 2021-09-24  (reanalysis-era5-single-levels)  ok
+[147/230] cached 2021-09-29  (reanalysis-era5-single-levels)  ok
+[148/230] cached 2021-10-06  (reanalysis-era5-single-levels)  ok
+[149/230] cached 2021-10-11  (reanalysis-era5-single-levels)  ok
+[150/230] cached 2021-10-18  (reanalysis-era5-single-levels)  ok
+[151/230] cached 2022-01-10  (reanalysis-era5-single-levels)  ok
+[152/230] cached 2022-01-15  (reanalysis-era5-single-levels)  ok
+[153/230] cached 2022-01-22  (reanalysis-era5-single-levels)  ok
+[154/230] cached 2022-01-27  (reanalysis-era5-single-levels)  ok
+[155/230] cached 2022-02-03  (reanalysis-era5-single-levels)  ok
+[156/230] cached 2022-02-08  (reanalysis-era5-single-levels)  ok
+[157/230] cached 2022-02-15  (reanalysis-era5-single-levels)  ok
+[158/230] cached 2022-02-20  (reanalysis-era5-single-levels)  ok
+[159/230] cached 2022-02-27  (reanalysis-era5-single-levels)  ok
+[160/230] cached 2022-04-09  (reanalysis-era5-single-levels)  ok
+[161/230] cached 2022-04-16  (reanalysis-era5-single-levels)  ok
+[162/230] cached 2022-04-21  (reanalysis-era5-single-levels)  ok
+[163/230] cached 2022-04-28  (reanalysis-era5-single-levels)  ok
+[164/230] cached 2022-05-03  (reanalysis-era5-single-levels)  ok
+[165/230] cached 2022-05-10  (reanalysis-era5-single-levels)  ok
+[166/230] cached 2022-05-15  (reanalysis-era5-single-levels)  ok
+[167/230] cached 2022-05-22  (reanalysis-era5-single-levels)  ok
+[168/230] cached 2022-05-27  (reanalysis-era5-single-levels)  ok
+[169/230] cached 2022-08-09  (reanalysis-era5-single-levels)  ok
+[170/230] cached 2022-08-14  (reanalysis-era5-single-levels)  ok
+[171/230] cached 2022-08-19  (reanalysis-era5-single-levels)  ok
+[172/230] cached 2022-08-21  (reanalysis-era5-single-levels)  ok
+[173/230] cached 2022-08-26  (reanalysis-era5-single-levels)  ok
+[174/230] cached 2022-11-18  (reanalysis-era5-single-levels)  ok
+[175/230] cached 2022-11-23  (reanalysis-era5-single-levels)  ok
+[176/230] cached 2022-11-30  (reanalysis-era5-single-levels)  ok
+[177/230] cached 2022-12-05  (reanalysis-era5-single-levels)  ok
+[178/230] cached 2023-03-06  (reanalysis-era5-single-levels)  ok
+[179/230] cached 2023-03-11  (reanalysis-era5-single-levels)  ok
+[180/230] cached 2023-03-18  (reanalysis-era5-single-levels)  ok
+[181/230] cached 2023-03-23  (reanalysis-era5-single-levels)  ok
+[182/230] cached 2023-05-17  (reanalysis-era5-single-levels)  ok
+[183/230] cached 2023-05-22  (reanalysis-era5-single-levels)  ok
+[184/230] cached 2023-05-29  (reanalysis-era5-single-levels)  ok
+[185/230] cached 2023-06-03  (reanalysis-era5-single-levels)  ok
+[186/230] cached 2023-06-10  (reanalysis-era5-single-levels)  ok
+[187/230] cached 2023-06-22  (reanalysis-era5-single-levels)  ok
+[188/230] cached 2023-06-27  (reanalysis-era5-single-levels)  ok
+[189/230] cached 2023-06-29  (reanalysis-era5-single-levels)  ok
+[190/230] cached 2023-07-04  (reanalysis-era5-single-levels)  ok
+[191/230] cached 2023-07-09  (reanalysis-era5-single-levels)  ok
+[192/230] cached 2023-07-11  (reanalysis-era5-single-levels)  ok
+[193/230] cached 2023-07-16  (reanalysis-era5-single-levels)  ok
+[194/230] cached 2023-08-26  (reanalysis-era5-single-levels)  ok
+[195/230] cached 2023-09-02  (reanalysis-era5-single-levels)  ok
+[196/230] cached 2023-09-07  (reanalysis-era5-single-levels)  ok
+[197/230] cached 2023-09-14  (reanalysis-era5-single-levels)  ok
+[198/230] cached 2023-09-19  (reanalysis-era5-single-levels)  ok
+[199/230] cached 2023-11-01  (reanalysis-era5-single-levels)  ok
+[200/230] cached 2023-11-06  (reanalysis-era5-single-levels)  ok
+[201/230] cached 2023-11-13  (reanalysis-era5-single-levels)  ok
+[202/230] cached 2023-11-18  (reanalysis-era5-single-levels)  ok
+[203/230] cached 2023-11-25  (reanalysis-era5-single-levels)  ok
+[204/230] cached 2023-12-31  (reanalysis-era5-single-levels)  ok
+[205/230] cached 2024-01-05  (reanalysis-era5-single-levels)  ok
+[206/230] cached 2024-01-12  (reanalysis-era5-single-levels)  ok
+[207/230] cached 2024-01-17  (reanalysis-era5-single-levels)  ok
+[208/230] cached 2025-04-17  (reanalysis-era5-single-levels)  ok
+[209/230] cached 2025-04-24  (reanalysis-era5-single-levels)  ok
+[210/230] cached 2025-04-29  (reanalysis-era5-single-levels)  ok
+[211/230] cached 2025-05-01  (reanalysis-era5-single-levels)  ok
+[212/230] cached 2025-05-06  (reanalysis-era5-single-levels)  ok
+[213/230] cached 2025-05-11  (reanalysis-era5-single-levels)  ok
+[214/230] cached 2025-05-13  (reanalysis-era5-single-levels)  ok
+[215/230] cached 2025-05-18  (reanalysis-era5-single-levels)  ok
+[216/230] cached 2025-05-25  (reanalysis-era5-single-levels)  ok
+[217/230] cached 2025-06-18  (reanalysis-era5-single-levels)  ok
+[218/230] cached 2025-06-23  (reanalysis-era5-single-levels)  ok
+[219/230] cached 2025-06-30  (reanalysis-era5-single-levels)  ok
+[220/230] cached 2025-07-05  (reanalysis-era5-single-levels)  ok
+[221/230] cached 2025-07-12  (reanalysis-era5-single-levels)  ok
+[222/230] cached 2025-08-03  (reanalysis-era5-single-levels)  ok
+[223/230] cached 2025-08-10  (reanalysis-era5-single-levels)  ok
+[224/230] cached 2025-08-15  (reanalysis-era5-single-levels)  ok
+[225/230] cached 2025-08-22  (reanalysis-era5-single-levels)  ok
+[226/230] cached 2025-08-27  (reanalysis-era5-single-levels)  ok
+[227/230] cached 2026-01-25  (reanalysis-era5-single-levels)  ok
+[228/230] cached 2026-01-30  (reanalysis-era5-single-levels)  ok
+[229/230] cached 2026-02-06  (reanalysis-era5-single-levels)  ok
+[230/230] cached 2026-02-11  (reanalysis-era5-single-levels)  ok
+
+Wrote 262 rows to /home/kmusty/Desktop/niger-delta-sar-validation/data/interim/environmental_context.csv
+
+--- Checkpoint ---
+rows:             262  (expected ≈ 262)
+wind_speed  min/max:  0.628 / 7.704 m/s
+wind_speed  median:   4.033 m/s
+precip      min/max:  0.0000 / 17.2262 mm
+wind_speed < 3.0 m/s:              67  (LOW_WIND)
+wind_speed in [3.0, 12.0] m/s:     195  (OBSERVABLE)
+wind_speed > 12.0 m/s:             0  (HIGH_WIND)
+precip > 5.0 mm (RAIN class):  2
+
+## STDERR
+2026-10-12 20:31:25,301 INFO [2026-10-06T00:00:00Z] The [CDS Terms of Use](https://cds.climate.copernicus.eu/disclaimer-privacy) will be updated on 28 October 2026. Continued use of Copernicus Products and Services through the CDS after this date constitutes acceptance of the updated terms. If you do not accept the change, please [contact ECMWF Support](https://jira.ecmwf.int/plugins/servlet/desk/portal/1/create/202) before 27 October 2026.
+ **[More information about the upcoming change.](https://forum.ecmwf.int/t/upcoming-cds-terms-of-use-change/15374)**

@@ -2,19 +2,22 @@
 """
 Phase 2e — Observability classification per acquisition.
 
-Joins acquisition_metadata + environmental_context + habitat_group.
+Joins acquisition_metadata + environmental_context + habitat_group,
+restricted to acquisitions that passed the QC filter in script 07.
 Classifies each acquisition into one of 9 observability classes:
-    OBSERVABLE_OPEN_WATER    - water habitat, suitable wind, no rain
-    OBSERVABLE_SWAMP         - swamp habitat, suitable wind, no rain
+
+    OBSERVABLE_OPEN_WATER    - open-water habitat, wind 3-12, no rain
+    OBSERVABLE_SWAMP         - swamp habitat, wind 3-12, no rain
     UNOBSERVABLE_TERRESTRIAL - land habitat
     UNOBSERVABLE_LOW_WIND    - wind < 3 m/s
     UNOBSERVABLE_HIGH_WIND   - wind > 12 m/s
     UNOBSERVABLE_RAIN        - precip > 5 mm/hr
-    UNOBSERVABLE_NO_SAR      - incident with no successful SAR acquisition
+    UNOBSERVABLE_NO_SAR      - no successful or QC-passing acquisitions
     UNKNOWN_HABITAT          - habitat not recorded
     UNKNOWN_ENVIRONMENT      - no ERA5 data available
 
-Total expected: 266 rows (262 acquisitions + 4 no-SAR incidents).
+Output row count = (QC-passing acquisitions) + (incidents with no QC-passing
+acquisition).
 """
 from __future__ import annotations
 
@@ -31,7 +34,7 @@ import config  # noqa: E402
 META_CSV  = config.DATA_INTERIM / "acquisition_metadata.csv"
 ENV_CSV   = config.DATA_INTERIM / "environmental_context.csv"
 INSP_CSV  = config.DATA_INTERIM / "inspection_done.csv"
-EXTRACT   = config.DATA_INTERIM / "extraction_log.csv"
+DIFF_CSV  = config.DATA_INTERIM / "per_acquisition_diff.csv"
 OUT_CSV   = config.DATA_INTERIM / "observability_classes.csv"
 
 logging.basicConfig(
@@ -88,21 +91,31 @@ def main():
     meta = pd.read_csv(META_CSV)
     env  = pd.read_csv(ENV_CSV)
     insp = pd.read_csv(INSP_CSV)
+    diff = pd.read_csv(DIFF_CSV)
 
     log.info(f"Loaded {len(meta)} acquisitions, {len(env)} environment rows, "
-             f"{len(insp)} inspection rows")
+             f"{len(insp)} inspection rows, {len(diff)} diff pairs")
 
     habitat_lookup = dict(zip(insp["incident_id"], insp["habitat_group"]))
 
+    # --- Restrict to QC-passing acquisitions -------------------------
+    qc_targets   = set(zip(diff["incident_id"], diff["target_date"]))
+    qc_baselines = set(zip(diff["incident_id"], diff["baseline_date"]))
+    qc_ok = qc_targets | qc_baselines
+
+    meta["_pair"] = list(zip(meta["incident_id"], meta["sar_date"]))
+    meta_qc = meta[meta["_pair"].isin(qc_ok)].drop(columns="_pair").copy()
+    log.info(f"After QC filter: {len(meta_qc)} acquisitions "
+             f"(from {len(meta)} total)")
+
     # --- Join metadata + environment ---------------------------------
-    df = meta.merge(
+    df = meta_qc.merge(
         env[["incident_id", "sar_date", "wind_speed", "precipitation"]],
         on=["incident_id", "sar_date"],
         how="left",
     )
     log.info(f"After merge: {len(df)} rows")
 
-    # Report merge failures (should be zero)
     n_missing = df["wind_speed"].isna().sum()
     if n_missing > 0:
         log.warning(f"{n_missing} rows have no ERA5 match")
@@ -113,7 +126,7 @@ def main():
     if n_unknown_hab > 0:
         log.warning(f"{n_unknown_hab} rows have unknown habitat")
 
-    # --- Classify each acquisition -----------------------------------
+    # --- Classify each QC-passing acquisition ------------------------
     rows = []
     for _, r in df.iterrows():
         obs, reason = classify(r["habitat_group"], r["wind_speed"],
@@ -128,16 +141,15 @@ def main():
             "reason": reason,
         })
 
-    # --- Add no-SAR incidents (one row per incident) -----------------
-    extraction = pd.read_csv(EXTRACT)
-    failed_ids = sorted(set(
-        extraction[extraction["status"] != "SUCCESS"]["incident_id"]
-        .astype(int).unique()
-    ))
+    # --- Add incidents with NO QC-passing acquisition ----------------
+    qc_incidents = set(diff["incident_id"].unique())
+    all_incidents = set(meta["incident_id"].unique())
+    no_qc_incidents = sorted(all_incidents - qc_incidents)
 
-    if failed_ids:
-        log.info(f"Adding {len(failed_ids)} no-SAR incident rows: {failed_ids}")
-        for iid in failed_ids:
+    if no_qc_incidents:
+        log.info(f"Adding {len(no_qc_incidents)} incidents with no "
+                 f"QC-passing acquisition: {no_qc_incidents}")
+        for iid in no_qc_incidents:
             rows.append({
                 "incident_id": int(iid),
                 "sar_date": None,
@@ -145,7 +157,7 @@ def main():
                 "wind_speed": None,
                 "precipitation": None,
                 "observability": "UNOBSERVABLE_NO_SAR",
-                "reason": "No successful Sentinel-1 acquisitions",
+                "reason": "No successful or QC-passing Sentinel-1 acquisitions",
             })
 
     # --- Save --------------------------------------------------------
@@ -153,10 +165,11 @@ def main():
     out.to_csv(OUT_CSV, index=False)
 
     # --- Report ------------------------------------------------------
+    expected = len(meta_qc) + len(no_qc_incidents)
     log.info("=" * 60)
     log.info("PHASE 2E COMPLETE")
     log.info("=" * 60)
-    log.info(f"Total rows: {len(out)}  (expected 266)")
+    log.info(f"Total rows: {len(out)}  (expected {expected})")
     log.info("")
     log.info("Class distribution:")
     log.info(out["observability"].value_counts().to_string())
@@ -179,7 +192,8 @@ def main():
     log.info("=" * 60)
     log.info(f"High-confidence OBSERVABLE (open water, wind 3-12, no rain): "
              f"{n_obs_water}")
-    log.info(f"Total acquisitions: {len(meta)}")
+    log.info(f"Total QC-passing acquisitions: {len(meta_qc)}")
+    log.info(f"Incidents with no usable SAR:  {len(no_qc_incidents)}")
 
 
 if __name__ == "__main__":

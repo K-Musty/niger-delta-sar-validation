@@ -1,0 +1,12 @@
+# Script:      01_clean_candidates.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/01_clean_candidates.py
+# Run at:      2026-10-12T20:24:57.294498
+# Elapsed:     0.7 s
+# Return code: 1
+
+## STDOUT
+2026-10-12 20:24:56,594 [INFO] Checking dependencies...
+2026-10-12 20:24:57,213 [INFO] pandas version: 2.3.3
+2026-10-12 20:24:57,213 [INFO] geopandas version: 1.1.4
+2026-10-12 20:24:57,213 [ERROR] Missing input file: nosdra_sentinel1_candidates.csv
+2026-10-12 20:24:57,213 [ERROR] This should be the 83-row candidate CSV you generated earlier.

@@ -1,0 +1,8 @@
+# Script:      sample_flow.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/analysis/sample_flow.py
+# Run at:      2026-10-12T20:24:55.643854
+# Elapsed:     1.0 s
+# Return code: 0
+
+## STDOUT
+Wrote /home/kmusty/Desktop/niger-delta-sar-validation/figures/figure_1_sample_flow.png

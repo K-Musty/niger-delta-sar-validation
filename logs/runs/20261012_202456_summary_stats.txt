@@ -1,0 +1,55 @@
+# Script:      summary_stats.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/analysis/summary_stats.py
+# Run at:      2026-10-12T20:33:14.281822
+# Elapsed:     0.9 s
+# Return code: 0
+
+## STDOUT
+{
+  "sample_flow": {
+    "nosdra_raw_records": 21167,
+    "filtered_candidates": 67,
+    "incidents_with_sar": 63,
+    "acquisitions_extracted": 262,
+    "post_incident_diffs": 114,
+    "pre_incident_controls": 64,
+    "observable_open_water": 72,
+    "observable_swamp": 17,
+    "distinguishable_spills": 0
+  },
+  "cluster_counts": {
+    "total": 336,
+    "post": 235,
+    "control": 101,
+    "post_rate_per_acq": 2.06140350877193,
+    "control_rate_per_acq": 1.578125,
+    "rate_ratio": 1.3062358867465693
+  },
+  "distance_m": {
+    "post": {
+      "n": 235,
+      "median": 1972.366983625187,
+      "q25": 1314.3047598540525,
+      "q75": 2466.8598205350563
+    },
+    "control": {
+      "n": 101,
+      "median": 1847.505991741748,
+      "q25": 1213.9853136522652,
+      "q75": 2496.4550823858403
+    },
+    "mann_whitney_p": 0.4950881281119657,
+    "mann_whitney_u": 12425.0
+  },
+  "close_clusters_under_500m": {
+    "post": 11,
+    "control": 7
+  },
+  "wind_ms": {
+    "median": 3.9689054211132864,
+    "q05": 1.580553327120306,
+    "q95": 5.826618895978084
+  }
+}
+
+Wrote /home/kmusty/Desktop/niger-delta-sar-validation/data/output/stats.json

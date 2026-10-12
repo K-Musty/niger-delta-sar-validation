@@ -1,0 +1,11 @@
+# Script:      distance_vs_time.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/analysis/distance_vs_time.py
+# Run at:      2026-10-12T20:33:12.342774
+# Elapsed:     2.8 s
+# Return code: 0
+
+## STDOUT
+Wrote /home/kmusty/Desktop/niger-delta-sar-validation/figures/figure_2_distance_vs_time.png
+Points: 68
+  Post-incident: 44
+  Pre-incident:  24

@@ -1,0 +1,44 @@
+# Script:      08_detect_anomaly_candidates.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/08_detect_anomaly_candidates.py
+# Run at:      2026-10-12T20:33:09.090102
+# Elapsed:     89.7 s
+# Return code: 0
+
+## STDOUT
+2026-10-12 20:31:40,117 [INFO] Loaded 178 diff records
+2026-10-12 20:31:40,117 [INFO] Thresholds: contrast>=5.0 dB, min_px=100, min_mean_dark>=5.0 dB
+2026-10-12 20:33:08,957 [INFO] ============================================================
+2026-10-12 20:33:08,957 [INFO] PHASE 2D COMPLETE (v2)
+2026-10-12 20:33:08,957 [INFO] ============================================================
+2026-10-12 20:33:08,957 [INFO] Diffs processed:      178
+2026-10-12 20:33:08,957 [INFO] Failed:               0
+2026-10-12 20:33:08,957 [INFO] Candidate clusters:   336
+2026-10-12 20:33:08,957 [INFO] Unique incidents:     33
+2026-10-12 20:33:08,958 [INFO] Post-incident:        235
+2026-10-12 20:33:08,958 [INFO] Pre-incident (ctrl):  101
+2026-10-12 20:33:08,958 [INFO] 
+2026-10-12 20:33:08,958 [INFO] Detection rate per acquisition:
+2026-10-12 20:33:08,958 [INFO]   Post-incident: 235/114 = 2.061
+2026-10-12 20:33:08,958 [INFO]   Pre-incident:  101/64 = 1.578
+2026-10-12 20:33:08,958 [INFO] 
+2026-10-12 20:33:08,958 [INFO] Distance to reported coord (m):
+2026-10-12 20:33:08,961 [INFO] count     336.000000
+mean     1838.245604
+std       767.965150
+min       159.892379
+25%      1269.988026
+50%      1918.381780
+75%      2478.387963
+90%      2788.095919
+max      3354.240263
+2026-10-12 20:33:08,961 [INFO] 
+2026-10-12 20:33:08,961 [INFO] Cluster area (pixels):
+2026-10-12 20:33:08,963 [INFO] count     336.000000
+mean      323.491071
+std       664.894946
+min       100.000000
+25%       117.000000
+50%       152.000000
+75%       251.000000
+90%       516.500000
+max      7806.000000

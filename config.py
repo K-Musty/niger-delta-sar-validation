@@ -51,6 +51,7 @@ BASELINE_DAYS_BEFORE = (30, 60)
 SPILL_DAYS_AFTER     = 14
 ANOMALY_PERCENTILE   = 5
 MIN_ANOMALY_PIXELS   = 20
+MIN_VALID_FRACTION = 0.95   # reject TIFs with < 95% valid (finite) pixels
 MIN_CONTRAST_DB      = 3.0        # secondary filter: cluster ≥ 3 dB darker than median
 
 # ── Environmental context (ERA5 / CDS) ───────────────────────────────

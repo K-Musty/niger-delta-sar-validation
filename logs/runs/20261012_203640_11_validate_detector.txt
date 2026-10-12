@@ -1,0 +1,56 @@
+# Script:      11_validate_detector.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/11_validate_detector.py
+# Run at:      2026-10-12T20:37:10.770547
+# Elapsed:     30.7 s
+# Return code: 0
+
+## STDOUT
+Detector parameters (imported from scripts/08):
+  CONTRAST_DB      = 5.0
+  MIN_CLUSTER_PX   = 100
+  MIN_MEAN_DARK_DB = 5.0
+
+Loaded 178 pairs from /home/kmusty/Desktop/niger-delta-sar-validation/data/interim/per_acquisition_diff.csv
+Selected 20 pairs across 20 incidents
+
+Diagnostic — first diff distribution:
+  n        = 251502
+  median   = +0.50 dB
+  std      = 2.59 dB
+  p05/p95  = -3.76 / +4.73 dB
+
+[ 1/20] 41382 (2015-07-15 -> 2015-07-27): RECOVERED  (nearest 12 m, pre-existing 0, recovered 1) [fallback]
+[ 2/20] 41675 (2015-07-15 -> 2015-07-27): RECOVERED  (nearest 4 m, pre-existing 0, recovered 1) [fallback]
+[ 3/20] 41981 (2015-12-18 -> 2015-12-30): RECOVERED  (nearest 11 m, pre-existing 0, recovered 1) [fallback]
+[ 4/20] 45481 (2015-09-13 -> 2015-09-25): RECOVERED  (nearest 13 m, pre-existing 0, recovered 1)
+[ 5/20] 47378 (2016-03-23 -> 2016-04-04): RECOVERED  (nearest 11 m, pre-existing 0, recovered 1) [fallback]
+[ 6/20] 48354 (2016-05-05 -> 2016-05-17): RECOVERED  (nearest 19 m, pre-existing 0, recovered 1) [fallback]
+[ 7/20] 51624 (2016-09-14 -> 2016-09-26): RECOVERED  (nearest 12 m, pre-existing 0, recovered 1) [fallback]
+[ 8/20] 51625 (2016-09-14 -> 2016-09-26): RECOVERED  (nearest 8 m, pre-existing 0, recovered 1) [fallback]
+[ 9/20] 52398 (2016-10-25 -> 2016-11-06): RECOVERED  (nearest 2 m, pre-existing 0, recovered 1) [fallback]
+[10/20] 66570 (2017-05-19 -> 2017-05-24): RECOVERED  (nearest 20 m, pre-existing 1, recovered 2) [fallback]
+[11/20] 74310 (2017-09-02 -> 2017-09-14): RECOVERED  (nearest 16 m, pre-existing 0, recovered 1) [fallback]
+[12/20] 99001 (2017-02-10 -> 2017-02-22): RECOVERED  (nearest 19 m, pre-existing 0, recovered 1) [fallback]
+[13/20] 118455 (2018-04-20 -> 2018-04-25): RECOVERED  (nearest 20 m, pre-existing 1, recovered 2) [fallback]
+[14/20] 119780 (2018-04-18 -> 2018-04-25): RECOVERED  (nearest 5 m, pre-existing 0, recovered 1) [fallback]
+[15/20] 141301 (2018-08-04 -> 2018-08-11): RECOVERED  (nearest 14 m, pre-existing 0, recovered 1) [fallback]
+[16/20] 142357 (2018-10-03 -> 2018-10-10): RECOVERED  (nearest 29 m, pre-existing 20, recovered 21) [fallback]
+[17/20] 142466 (2018-07-06 -> 2018-07-11): RECOVERED  (nearest 8 m, pre-existing 0, recovered 1)
+[18/20] 145431 (2018-12-26 -> 2019-01-02): RECOVERED  (nearest 3 m, pre-existing 0, recovered 1) [fallback]
+[19/20] 146118 (2019-01-19 -> 2019-01-26): RECOVERED  (nearest 4 m, pre-existing 0, recovered 1) [fallback]
+[20/20] 146837 (2019-01-21 -> 2019-01-26): RECOVERED  (nearest 18 m, pre-existing 0, recovered 1) [fallback]
+
+================================================================
+POSITIVE CONTROL RESULTS
+================================================================
+Injections:        20  (fallback sites: 18)
+Recovered (<500m): 20
+Detection rate:    100.0%
+Median loc error:  12 m
+Q25/Q75 loc err:   7 / 18 m
+
+Pre-existing clusters per image: median 0, Q25/Q75 0/0
+
+VERDICT: Pipeline validated. Ready to write the paper.
+
+Detailed results: /home/kmusty/Desktop/niger-delta-sar-validation/artifacts/detector_validation/recovery_results.csv

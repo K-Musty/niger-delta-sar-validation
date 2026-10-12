@@ -1,0 +1,15 @@
+# Script:      distance_vs_time.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/analysis/distance_vs_time.py
+# Run at:      2026-10-12T20:24:54.627415
+# Elapsed:     1.2 s
+# Return code: 0
+
+## STDOUT
+Wrote /home/kmusty/Desktop/niger-delta-sar-validation/figures/figure_2_distance_vs_time.png
+Points: 68
+  Post-incident: 44
+  Pre-incident:  24
+
+## STDERR
+/home/kmusty/Desktop/niger-delta-sar-validation/analysis/distance_vs_time.py:61: UserWarning: You passed a edgecolor/edgecolors ('none') for an unfilled marker ('x').  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  ax.scatter(pre["days_after_incident"], pre["min_distance_m"],

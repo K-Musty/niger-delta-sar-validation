@@ -1,0 +1,39 @@
+# Script:      10_classify_observability.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/10_classify_observability.py
+# Run at:      2026-10-12T20:24:53.452928
+# Elapsed:     0.5 s
+# Return code: 0
+
+## STDOUT
+2026-10-12 20:24:53,367 [INFO] Loaded 262 acquisitions, 262 environment rows, 67 inspection rows, 178 diff pairs
+2026-10-12 20:24:53,369 [INFO] After QC filter: 235 acquisitions (from 262 total)
+2026-10-12 20:24:53,371 [INFO] After merge: 235 rows
+2026-10-12 20:24:53,373 [WARNING] 5 rows have unknown habitat
+2026-10-12 20:24:53,389 [INFO] Adding 6 incidents with no QC-passing acquisition: [46605, 51551, 188796, 201682, 206773, 395755]
+2026-10-12 20:24:53,394 [INFO] ============================================================
+2026-10-12 20:24:53,394 [INFO] PHASE 2E COMPLETE
+2026-10-12 20:24:53,394 [INFO] ============================================================
+2026-10-12 20:24:53,394 [INFO] Total rows: 241  (expected 241)
+2026-10-12 20:24:53,394 [INFO] 
+2026-10-12 20:24:53,394 [INFO] Class distribution:
+2026-10-12 20:24:53,395 [INFO] observability
+UNOBSERVABLE_TERRESTRIAL    100
+OBSERVABLE_OPEN_WATER        72
+UNOBSERVABLE_LOW_WIND        40
+OBSERVABLE_SWAMP             17
+UNOBSERVABLE_NO_SAR           6
+UNKNOWN_HABITAT               5
+UNOBSERVABLE_RAIN             1
+2026-10-12 20:24:53,395 [INFO] 
+2026-10-12 20:24:53,396 [INFO] OBSERVABLE total:       89
+2026-10-12 20:24:53,396 [INFO]   - open water:         72
+2026-10-12 20:24:53,396 [INFO]   - swamp:              17
+2026-10-12 20:24:53,396 [INFO] Unobservable:           147
+2026-10-12 20:24:53,396 [INFO] Unknown:                5
+2026-10-12 20:24:53,396 [INFO] 
+2026-10-12 20:24:53,396 [INFO] ============================================================
+2026-10-12 20:24:53,396 [INFO] HEADLINE NUMBER FOR PAPER
+2026-10-12 20:24:53,396 [INFO] ============================================================
+2026-10-12 20:24:53,396 [INFO] High-confidence OBSERVABLE (open water, wind 3-12, no rain): 72
+2026-10-12 20:24:53,396 [INFO] Total QC-passing acquisitions: 235
+2026-10-12 20:24:53,396 [INFO] Incidents with no usable SAR:  6

@@ -1,0 +1,8 @@
+# Script:      02_add_habitat.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/02_add_habitat.py
+# Run at:      2026-10-12T20:24:57.732230
+# Elapsed:     0.4 s
+# Return code: 1
+
+## STDOUT
+Missing: spill-data.php.json

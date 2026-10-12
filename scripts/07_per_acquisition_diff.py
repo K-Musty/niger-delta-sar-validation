@@ -46,6 +46,12 @@ log = logging.getLogger(__name__)
 
 OUT_TIF_DIR.mkdir(parents=True, exist_ok=True)
 
+def valid_fraction(path: Path) -> float:
+    """Return the fraction of pixels in a TIF that are finite (non-NaN)."""
+    with rasterio.open(path) as src:
+        a = src.read(1)
+        finite = np.isfinite(a)
+        return float(finite.sum()) / a.size
 
 def parse_date_from_tif(path: Path) -> str | None:
     """Extract YYYY-MM-DD from filename <incident_id>_<date>.tif"""
@@ -98,11 +104,13 @@ def main() -> None:
 
     log.info(f"Found {sum(len(v) for v in by_incident.values())} TIFs "
              f"across {len(by_incident)} incidents")
+    log.info(f"QC filter: MIN_VALID_FRACTION = {config.MIN_VALID_FRACTION}")
 
     rows = []
     skip_no_baseline = []
     skip_single = []
     skip_shape = []
+    skip_qc = []
 
     for iid, tifs in sorted(by_incident.items()):
         # Sort by date
@@ -135,6 +143,16 @@ def main() -> None:
             key=lambda x: abs(pd.Timestamp(x[0]) - target_anchor),
         )
 
+        # --- QC filter: baseline ------------------------------------
+        bf = valid_fraction(baseline_tif)
+        if bf < config.MIN_VALID_FRACTION:
+            log.warning(f"  [{iid}] skip incident: baseline "
+                        f"{baseline_tif.name} valid_fraction={bf:.3f} "
+                        f"< {config.MIN_VALID_FRACTION}")
+            skip_qc.append((iid, baseline_date, "baseline_low_valid",
+                            round(bf, 4)))
+            continue
+
         with rasterio.open(baseline_tif) as src:
             baseline_arr = src.read(1).astype(np.float32)
             baseline_profile = src.profile.copy()
@@ -145,10 +163,20 @@ def main() -> None:
         targets = [(d, t) for d, t in dated
                    if pd.Timestamp(d) > pd.Timestamp(baseline_date)]
 
-        log.info(f"[{iid}] baseline={baseline_date}, "
+        log.info(f"[{iid}] baseline={baseline_date} (valid={bf:.2f}), "
                  f"targets={len(targets)}")
 
         for target_date, target_tif in targets:
+            # --- QC filter: target -----------------------------------
+            tf = valid_fraction(target_tif)
+            if tf < config.MIN_VALID_FRACTION:
+                log.warning(f"  [{iid}] skip target "
+                            f"{target_tif.name} valid_fraction={tf:.3f} "
+                            f"< {config.MIN_VALID_FRACTION}")
+                skip_qc.append((iid, target_date, "target_low_valid",
+                                round(tf, 4)))
+                continue
+
             with rasterio.open(target_tif) as src:
                 target_arr = src.read(1).astype(np.float32)
 
@@ -192,6 +220,7 @@ def main() -> None:
                 "diff_path": str(out_path),
                 "days_after_incident": days_after,
                 "baseline_days_before": days_before,
+                "pre_incident": bool(days_after < 0),
                 "mean_diff": float(np.nanmean(diff_clean)),
                 "min_diff": float(np.nanmin(diff_clean)),
                 "p05_diff": float(np.nanpercentile(diff_clean, 5)),
@@ -210,6 +239,10 @@ def main() -> None:
     with open(LOG_DIR / "skipped_shape_mismatch.txt", "w") as f:
         for entry in skip_shape:
             f.write(repr(entry) + "\n")
+    with open(LOG_DIR / "skipped_qc.txt", "w") as f:
+        f.write("# incident_id, date, reason, valid_fraction\n")
+        for entry in skip_qc:
+            f.write(f"{entry[0]},{entry[1]},{entry[2]},{entry[3]}\n")
 
     log.info("=" * 60)
     log.info("PHASE 2C COMPLETE")
@@ -218,8 +251,13 @@ def main() -> None:
     log.info(f"Unique incidents:     {out['incident_id'].nunique() if len(out) else 0}")
     log.info(f"Skipped (no baseline): {len(skip_no_baseline)}")
     log.info(f"Skipped (single acq):  {len(skip_single)}")
-    log.info(f"Shape mismatches:      {len(skip_shape)}")
-
+    log.info(f"Skipped (shape):       {len(skip_shape)}")
+    log.info(f"Skipped (QC):          {len(skip_qc)}")
+    if skip_qc:
+        log.info("")
+        log.info("QC-skipped acquisitions:")
+        for iid, dt, reason, frac in skip_qc:
+            log.info(f"  incident {iid}  {dt}  {reason}  valid={frac}")
 
 if __name__ == "__main__":
     main()

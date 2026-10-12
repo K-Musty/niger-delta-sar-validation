@@ -1,0 +1,9 @@
+# incident_id, date, reason, valid_fraction
+46605,2016-03-11,baseline_low_valid,0.0054
+188796,2019-08-11,baseline_low_valid,0.6085
+197492,2020-03-26,target_low_valid,0.0088
+197492,2020-04-07,target_low_valid,0.0101
+201682,2020-12-27,baseline_low_valid,0.2868
+206773,2021-05-20,baseline_low_valid,0.3659
+236556,2022-08-19,target_low_valid,0.2022
+395755,2025-04-17,baseline_low_valid,0.3705

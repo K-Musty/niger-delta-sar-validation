@@ -1,0 +1,93 @@
+# Script:      07_per_acquisition_diff.py
+# Path:        /home/kmusty/Desktop/niger-delta-sar-validation/scripts/07_per_acquisition_diff.py
+# Run at:      2026-10-12T20:33:22.925374
+# Elapsed:     8.6 s
+# Return code: 0
+
+## STDOUT
+2026-10-12 20:33:14,760 [INFO] Found 262 TIFs across 63 incidents
+2026-10-12 20:33:14,760 [INFO] QC filter: MIN_VALID_FRACTION = 0.95
+2026-10-12 20:33:14,783 [INFO] [41382] baseline=2015-07-15 (valid=1.00), targets=1
+2026-10-12 20:33:14,833 [INFO] [41675] baseline=2015-07-15 (valid=1.00), targets=1
+2026-10-12 20:33:14,880 [INFO] [41981] baseline=2015-12-18 (valid=1.00), targets=1
+2026-10-12 20:33:14,927 [INFO] [45481] baseline=2015-09-13 (valid=1.00), targets=2
+2026-10-12 20:33:14,998 [WARNING]   [46605] skip incident: baseline 46605_2016-03-11.tif valid_fraction=0.005 < 0.95
+2026-10-12 20:33:15,013 [INFO] [47378] baseline=2016-03-23 (valid=1.00), targets=2
+2026-10-12 20:33:15,104 [INFO] [48354] baseline=2016-05-05 (valid=1.00), targets=1
+2026-10-12 20:33:15,166 [INFO] [51624] baseline=2016-09-14 (valid=1.00), targets=1
+2026-10-12 20:33:15,214 [INFO] [51625] baseline=2016-09-14 (valid=1.00), targets=1
+2026-10-12 20:33:15,262 [INFO] [52398] baseline=2016-10-25 (valid=1.00), targets=2
+2026-10-12 20:33:15,358 [INFO] [66570] baseline=2017-05-19 (valid=1.00), targets=3
+2026-10-12 20:33:15,497 [INFO] [74310] baseline=2017-09-02 (valid=1.00), targets=2
+2026-10-12 20:33:15,581 [INFO] [99001] baseline=2017-02-10 (valid=1.00), targets=1
+2026-10-12 20:33:15,638 [INFO] [118455] baseline=2018-04-20 (valid=1.00), targets=3
+2026-10-12 20:33:15,772 [INFO] [119780] baseline=2018-04-18 (valid=1.00), targets=4
+2026-10-12 20:33:15,949 [INFO] [141301] baseline=2018-08-04 (valid=1.00), targets=3
+2026-10-12 20:33:16,086 [INFO] [142357] baseline=2018-10-03 (valid=1.00), targets=4
+2026-10-12 20:33:16,266 [INFO] [142466] baseline=2018-07-06 (valid=1.00), targets=4
+2026-10-12 20:33:16,436 [INFO] [145431] baseline=2018-12-26 (valid=1.00), targets=4
+2026-10-12 20:33:16,607 [INFO] [146118] baseline=2019-01-19 (valid=1.00), targets=4
+2026-10-12 20:33:16,785 [INFO] [146837] baseline=2019-01-21 (valid=1.00), targets=3
+2026-10-12 20:33:16,916 [INFO] [146889] baseline=2019-03-03 (valid=1.00), targets=4
+2026-10-12 20:33:17,099 [INFO] [183009] baseline=2019-07-20 (valid=1.00), targets=4
+2026-10-12 20:33:17,274 [WARNING]   [188796] skip incident: baseline 188796_2019-08-11.tif valid_fraction=0.608 < 0.95
+2026-10-12 20:33:17,286 [INFO] [189045] baseline=2019-08-25 (valid=1.00), targets=4
+2026-10-12 20:33:17,454 [INFO] [190443] baseline=2019-10-10 (valid=1.00), targets=4
+2026-10-12 20:33:17,626 [INFO] [190796] baseline=2019-11-10 (valid=1.00), targets=4
+2026-10-12 20:33:17,809 [INFO] [190999] baseline=2019-11-27 (valid=1.00), targets=3
+2026-10-12 20:33:17,934 [INFO] [193298] baseline=2019-03-15 (valid=1.00), targets=3
+2026-10-12 20:33:18,082 [INFO] [197162] baseline=2017-09-26 (valid=1.00), targets=1
+2026-10-12 20:33:18,132 [INFO] [197492] baseline=2020-03-21 (valid=1.00), targets=4
+2026-10-12 20:33:18,135 [WARNING]   [197492] skip target 197492_2020-03-26.tif valid_fraction=0.009 < 0.95
+2026-10-12 20:33:18,173 [WARNING]   [197492] skip target 197492_2020-04-07.tif valid_fraction=0.010 < 0.95
+2026-10-12 20:33:18,225 [INFO] [198458] baseline=2020-07-19 (valid=1.00), targets=4
+2026-10-12 20:33:18,401 [INFO] [198837] baseline=2020-08-24 (valid=1.00), targets=4
+2026-10-12 20:33:18,583 [INFO] [199297] baseline=2020-11-04 (valid=1.00), targets=4
+2026-10-12 20:33:18,733 [WARNING]   [201682] skip incident: baseline 201682_2020-12-27.tif valid_fraction=0.287 < 0.95
+2026-10-12 20:33:18,749 [INFO] [201973] baseline=2021-02-27 (valid=1.00), targets=4
+2026-10-12 20:33:18,939 [WARNING]   [206773] skip incident: baseline 206773_2021-05-20.tif valid_fraction=0.366 < 0.95
+2026-10-12 20:33:18,956 [INFO] [206891] baseline=2021-05-15 (valid=1.00), targets=2
+2026-10-12 20:33:19,072 [INFO] [214733] baseline=2021-08-24 (valid=1.00), targets=7
+2026-10-12 20:33:19,406 [INFO] [214890] baseline=2021-09-24 (valid=1.00), targets=4
+2026-10-12 20:33:19,575 [INFO] [222478] baseline=2021-07-02 (valid=1.00), targets=4
+2026-10-12 20:33:19,762 [INFO] [222545] baseline=2022-01-10 (valid=1.00), targets=4
+2026-10-12 20:33:19,948 [INFO] [229162] baseline=2018-06-24 (valid=1.00), targets=2
+2026-10-12 20:33:20,037 [INFO] [229239] baseline=2022-04-09 (valid=1.00), targets=4
+2026-10-12 20:33:20,219 [INFO] [229244] baseline=2022-04-28 (valid=1.00), targets=4
+2026-10-12 20:33:20,385 [INFO] [229281] baseline=2022-05-03 (valid=1.00), targets=4
+2026-10-12 20:33:20,556 [INFO] [236556] baseline=2022-08-14 (valid=1.00), targets=2
+2026-10-12 20:33:20,560 [WARNING]   [236556] skip target 236556_2022-08-19.tif valid_fraction=0.202 < 0.95
+2026-10-12 20:33:20,616 [INFO] [236594] baseline=2022-08-09 (valid=1.00), targets=3
+2026-10-12 20:33:20,754 [INFO] [244819] baseline=2022-02-03 (valid=1.00), targets=4
+2026-10-12 20:33:20,938 [INFO] [280291] baseline=2023-05-17 (valid=1.00), targets=4
+2026-10-12 20:33:21,108 [INFO] [281740] baseline=2023-06-22 (valid=1.00), targets=3
+2026-10-12 20:33:21,253 [INFO] [282326] baseline=2023-06-22 (valid=1.00), targets=4
+2026-10-12 20:33:21,422 [INFO] [282645] baseline=2023-03-06 (valid=1.00), targets=3
+2026-10-12 20:33:21,559 [INFO] [283345] baseline=2023-08-26 (valid=1.00), targets=4
+2026-10-12 20:33:21,752 [INFO] [284701] baseline=2023-11-01 (valid=1.00), targets=4
+2026-10-12 20:33:21,920 [INFO] [290140] baseline=2023-12-31 (valid=1.00), targets=3
+2026-10-12 20:33:22,062 [INFO] [319765] baseline=2022-11-18 (valid=1.00), targets=3
+2026-10-12 20:33:22,179 [WARNING]   [395755] skip incident: baseline 395755_2025-04-17.tif valid_fraction=0.370 < 0.95
+2026-10-12 20:33:22,195 [INFO] [396191] baseline=2025-05-01 (valid=1.00), targets=4
+2026-10-12 20:33:22,365 [INFO] [396389] baseline=2025-06-18 (valid=1.00), targets=4
+2026-10-12 20:33:22,548 [INFO] [415071] baseline=2025-08-03 (valid=1.00), targets=4
+2026-10-12 20:33:22,722 [INFO] [465934] baseline=2026-01-25 (valid=1.00), targets=3
+2026-10-12 20:33:22,849 [INFO] ============================================================
+2026-10-12 20:33:22,849 [INFO] PHASE 2C COMPLETE
+2026-10-12 20:33:22,849 [INFO] ============================================================
+2026-10-12 20:33:22,849 [INFO] Diff TIFs written:    178
+2026-10-12 20:33:22,850 [INFO] Unique incidents:     57
+2026-10-12 20:33:22,850 [INFO] Skipped (no baseline): 0
+2026-10-12 20:33:22,850 [INFO] Skipped (single acq):  1
+2026-10-12 20:33:22,850 [INFO] Skipped (shape):       0
+2026-10-12 20:33:22,850 [INFO] Skipped (QC):          8
+2026-10-12 20:33:22,850 [INFO] 
+2026-10-12 20:33:22,850 [INFO] QC-skipped acquisitions:
+2026-10-12 20:33:22,850 [INFO]   incident 46605  2016-03-11  baseline_low_valid  valid=0.0054
+2026-10-12 20:33:22,850 [INFO]   incident 188796  2019-08-11  baseline_low_valid  valid=0.6085
+2026-10-12 20:33:22,850 [INFO]   incident 197492  2020-03-26  target_low_valid  valid=0.0088
+2026-10-12 20:33:22,850 [INFO]   incident 197492  2020-04-07  target_low_valid  valid=0.0101
+2026-10-12 20:33:22,850 [INFO]   incident 201682  2020-12-27  baseline_low_valid  valid=0.2868
+2026-10-12 20:33:22,850 [INFO]   incident 206773  2021-05-20  baseline_low_valid  valid=0.3659
+2026-10-12 20:33:22,850 [INFO]   incident 236556  2022-08-19  target_low_valid  valid=0.2022
+2026-10-12 20:33:22,850 [INFO]   incident 395755  2025-04-17  baseline_low_valid  valid=0.3705

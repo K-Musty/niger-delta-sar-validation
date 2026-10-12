@@ -60,7 +60,7 @@ def main():
         if len(pre):
             ax.scatter(pre["days_after_incident"], pre["min_distance_m"],
                        label=f"{h} (control)", alpha=0.4, s=30,
-                       c=colors[h], marker="x", edgecolors="none")
+                       color=colors[h], marker="x", linewidths=1.2)
 
     ax.axvline(0, color="black", linestyle="--", linewidth=0.7,
                label="Incident date")
