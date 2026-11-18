@@ -1,9 +1,20 @@
-.venv/
+# Python
+.venv
 __pycache__/
 *.pyc
+
+# Secrets / environment
 .env
+
+# Logs
 logs/*.log
 logs/runs/
-artifacts/
-data/raw/
+
+# Large / regenerable data and artifacts (dirs in the main checkout,
+# symlinks in a bootstraped worktree)
+artifacts
+data/raw
 *.nc
+
+# Claude Code local state (permissions, model overrides)
+.claude/
