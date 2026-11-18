@@ -385,7 +385,7 @@ Total	266
 
 ## Paper V2 (review response) — complete
 
-Addressed the academic review concerns and rewrote the manuscript as `paper_v2.md`
+Addressed the academic review concerns and rewrote the manuscript as `paper/paper_v2.md`
 for Int. J. Applied Earth Observation & Geoinformation.
 
 New analysis scripts:

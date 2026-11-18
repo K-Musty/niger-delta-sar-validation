@@ -36,13 +36,13 @@ Counts of anomalies per image are clustered data, because several images belong 
 
 Regulatory records came from the Nigerian Oil Spill Monitor (NOSDRA). The raw database held 21,167 records. We kept incidents from 2015 to 2026 with a reported volume of at least 50 barrels, valid coordinates, and a location in a state defined by the Niger Delta Development Commission. This left 67 candidate incidents in seven states. Habitat was taken from the raw records and used to label each site as open water (26), swamp (7), terrestrial (29), or unknown (5). Figure 1 maps the 67 locations.
 
-![Figure 1](figures/figure_1_study_area.png)
+![Figure 1](../figures/figure_1_study_area.png)
 
 **Figure 1.** Study area map. The 67 candidate NOSDRA incidents are color-coded by habitat: open water (26), swamp (7), terrestrial (29), and unknown (5). Administrative state names and a 111 km scale bar are shown.
 
 The selection funnel is shown in Figure 2. Of the 67 candidates, 63 returned usable SAR data. Four incidents from early 2015 returned nothing because Sentinel-1 coverage was sparse during the commissioning phase.
 
-![Figure 2](figures/figure_2_sample_flow.png)
+![Figure 2](../figures/figure_2_sample_flow.png)
 
 **Figure 2.** Sample-selection funnel. Raw NOSDRA records (21,167) were filtered to 67 candidate incidents, 63 of which returned SAR data. The acquisitions (262) were reduced by acquisition-level quality control to 241, and by baseline matching and difference-image quality control to 178 difference images across 57 incidents (114 post-incident, 64 control).
 
@@ -117,13 +117,13 @@ The central result is spatial, and it points the other way. Post-incident cluste
 
 Figure 3 shows what the mismatch looks like on the ground. Incident 142357 was reported in Bayelsa on 2018-10-17 at an estimated volume of 1,751 barrels. The baseline image is from 2018-10-03; the post-incident mean combines scenes from 10-22 and 10-27. The dark diagonal feature crossing the scene is a permanent water channel that appears in both periods. No transient anomaly appears at the reported coordinate. The difference image shows darkening concentrated along the static channel edge, which is a co-registration artifact: a small misregistration between the two dates makes a fixed edge look like a change. The coordinate vicinity shows only background noise. This pattern was typical of the 57 incidents.
 
-![Figure 3](figures/figure_3_visual_mismatch.png)
+![Figure 3](../figures/figure_3_visual_mismatch.png)
 
 **Figure 3.** Visual mismatch for Incident 142357 (Bayelsa, reported 2018-10-17, 1,751 barrels). (a) Baseline acquisition, 2018-10-03. (b) Post-incident mean of 2018-10-22 and 2018-10-27. (c) Difference image (post minus baseline; red indicates darkening). The yellow circle marks the reported NOSDRA coordinate. The dark diagonal feature is a permanent water channel present in both periods. No transient anomaly appears at the coordinate. Darkening concentrates along the static channel edge, a co-registration artifact.
 
 Figure 4 shows distance to the nearest candidate against days after the incident, colored by habitat. Points do not converge on the origin at short gaps. The cloud stays broad at zero to three days, which is what a coordinate-level mismatch looks like when the oil has not had time to travel far.
 
-![Figure 4](figures/figure_4_distance_vs_time.png)
+![Figure 4](../figures/figure_4_distance_vs_time.png)
 
 **Figure 4.** Distance from the reported NOSDRA coordinate to the nearest detected anomaly candidate, plotted against days after the incident and colored by habitat. Short gaps do not produce short distances, which argues against advection alone as the source of the offset.
 
@@ -181,7 +181,7 @@ These findings matter for how the field validates SAR. Studies that compare Sent
 
 The weak-label recommendation can be operationalized. Four steps turn it into a workflow. (1) Detect and cluster dark anomalies across a region without using NOSDRA points as seeds or masks, keep the detector settings fixed, and report them. (2) Use NOSDRA dates only as a temporal filter: link a record to clusters found within a stated window (14 days here) and a stated radius (2.5 km here), and treat the link as event level. (3) Restrict the primary sample to open-water scenes with wind between 3 and 12 m/s and no rain, or model observability explicitly as in Table 2. (4) Report localization error separately from detection performance, and never feed the point coordinate into a model as a pixel label. Under this design, a NOSDRA record answers "did something happen near here, and when", not "which pixels are oil". That is a weaker claim than the literature often makes, but it is one the data support.
 
-![Figure 5](figures/figure_5_conceptual.png)
+![Figure 5](../figures/figure_5_conceptual.png)
 
 **Figure 5.** Conceptual diagram of the four drivers of spatial misalignment between reported NOSDRA coordinates and detected SAR anomalies: oil advection, domain mismatch between terrestrial records and marine SAR, coordinate imprecision from administrative recording, and environmental masking by low wind and rain.
 
@@ -225,7 +225,7 @@ Obida, C. B., Blackburn, G. A., Whyatt, J. D., & Semple, K. T. (2021). Counting 
 
 O'Farrell, J., O'Fionnagáin, D., Babatunde, A. O., Geever, M., Codyre, P., Murphy, P. C., Spillane, C., & Golden, A. (2025). Quantifying the impact of crude oil spills on the mangrove ecosystem in the Niger Delta using AI and Earth observation. *Remote Sensing, 17*(3), Article 358. https://doi.org/10.3390/rs17030358
 
-Oseni, R. D., Omosanya, K. O. L., Mosuro, G. O., Saka, H. O., Oludipe, V. D., & Oshomoji, A. O. (2026). Mapping persistent oil spill risk in the Niger Delta using Sentinel-1 SAR and environmental exposure indicators. *Marine Pollution Bulletin, 229*, Article 119674. https://doi.org/10.1016/j.marpolbul.2026.119674
+Oseni, R. D., Omosanya, K. O. L., Mosuro, G. O., Saka, H. O., Oludipe, V. D., & Oshomoji, A. (2026). Mapping persistent oil spill risk in the Niger Delta using Sentinel-1 SAR and environmental exposure indicators. *Marine Pollution Bulletin, 229*, Article 119674. https://doi.org/10.1016/j.marpolbul.2026.119674
 
 Skrunes, S., Brekke, C., Jones, C. E., Espeseth, M. M., & Holt, B. (2018). Effect of wind direction and incidence angle on polarimetric SAR observations of slicked and unslicked sea surfaces. *Remote Sensing of Environment, 213*, 73-91. https://doi.org/10.1016/j.rse.2018.05.001
 

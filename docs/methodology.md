@@ -16,7 +16,7 @@ Pipeline methodology for Niger Delta SAR oil-spill validation.
 - [x] Phase 4: `analysis/distance_vs_time.py` → Figure 2
 - [x] Phase 5: `analysis/sample_flow.py` → Figure 1
 - [x] Phase 6: `analysis/summary_stats.py` → `data/output/stats.json`
-- [x] Phase 7 (Paper V2): `analysis/13_mixed_effects.py` — GLMM primary (random intercept per incident) + GEE cross-check + naive reference; `analysis/14_sensitivity.py` — 5×3 threshold grid; `analysis/15_time_gap.py`; `analysis/16_study_area_map.py` (Figure 1); `analysis/17_visual_mismatch.py` (Figure 3). Manuscript rewritten as `paper_v2.md`.
+- [x] Phase 7 (Paper V2): `analysis/13_mixed_effects.py` — GLMM primary (random intercept per incident) + GEE cross-check + naive reference; `analysis/14_sensitivity.py` — 5×3 threshold grid; `analysis/15_time_gap.py`; `analysis/16_study_area_map.py` (Figure 1); `analysis/17_visual_mismatch.py` (Figure 3). Manuscript rewritten as `paper/paper_v2.md`.
 
 ## Key Design Decisions
 
