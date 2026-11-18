@@ -39,11 +39,12 @@ random-point null.
 **Response.** We added the random-point null. For each of the 32 incidents with a
 post-incident cluster, we drew 500 uniform points in the 5 × 5 km AOI and
 measured the distance to the nearest detected cluster. The reported coordinate is
-1,438 m from the nearest cluster on average, versus 1,674 m for a random point.
-So the coordinate carries a small amount of spatial information (about 14 percent
-closer than random), not none. This is the more precise finding the reviewer
-asked for: "no signal" is replaced with "a weak signal, well short of a usable
-pixel location." It is reported in §3.7 and §4.3.
+1,438 m from the nearest cluster on average, which falls at the 43rd percentile
+of the null distribution (median 1,674 m, 5th-95th percentile 270-4,411 m). The
+coordinate is therefore no closer to a cluster than a random point, and we do not
+interpret it as carrying a usable spatial signal. It is reported in §3.7 and
+§4.3. We note this null is not spatially matched (see F24, and the reviewer's
+later comment), so we do not overstate the comparison.
 
 ### A3. Expected nearest-distance under complete spatial randomness. [Blocker]
 
@@ -63,11 +64,11 @@ reported in §3.7 and §4.3.
 **Reviewer concern.** The brief and progress updates emphasized "0 visible spill
 signatures across 63 incidents"; the v2 draft dropped it.
 
-**Response.** Reinstated as §4.6. None of the 67 records received a positive
-spill verdict from the single annotator; all 63 inspectable incidents showed only
-incidental dark patches, none judged a spill. We state the single-annotator
-limitation explicitly and frame the result as suggestive, consistent with the
-automated distance result, and not the paper's primary evidence.
+**Response.** Reinstated as §4.6. The single annotator's verdicts were 27
+no-signal, 22 land-only, and 18 unclear across the 63 inspectable incidents; none
+was judged a coherent spill signature. We state the single-annotator limitation
+explicitly and frame the result as suggestive, consistent with the automated
+distance result, and not the paper's primary evidence.
 
 ### A5. The synthetic injection tests a Gaussian blob at 8 dB, not a realistic slick. [Major]
 
@@ -131,9 +132,10 @@ negative-binomial model with incident fixed effects (1.44, p = 0.17). The point
 estimates are stable and all exceed 1, but significance is estimator-dependent.
 We therefore demote the temporal claim from "significant" to "directionally
 consistent, marginal under the most defensible estimator." Reported in §3.7,
-§4.3, §5, and the abstract. A full negative-binomial GLMM is not available in the
-statsmodels backend we use; the negative-binomial GEE is the closest
-overdispersion-and-clustering model and is reported.
+§4.3, §5, and the abstract. Python's statsmodels does not implement a
+negative-binomial mixed model. The negative-binomial GEE (1.52, p = 0.063) and
+the negative-binomial model with incident fixed effects (1.44, p = 0.17) bracket
+the answer from either side; both are reported.
 
 ### B10. Why is the GEE the cross-check, not a co-equal test? [Major]
 
@@ -263,16 +265,18 @@ contribution is to show that and measure how it fails.
 
 **Reviewer concern.** Verify the DOI; if real, engage it directly.
 
-**Response.** Verified real. Oseni, Omosanya, Mosuro, Saka, Oludipe, and Oshomoji,
-"Mapping persistent oil spill risk in the Niger Delta using Sentinel-1 SAR and
-environmental exposure indicators," Marine Pollution Bulletin 229, 119674 (2026),
-DOI 10.1016/j.marpolbul.2026.119674. We now engage it directly in Related Work
-(§2): it maps persistent risk in the target journal and reports that exposure
-extends beyond reported locations, and it inherits the coordinate-accuracy
-assumption we test. We also verified Adebangbe et al. (2025b) (Int. J. Digital
-Earth 18(1), 2448218, published online 6 Jan 2025; the 2024 in the DOI is the
-acceptance year) and O'Farrell et al. (2025) (Remote Sensing 17(3), 358). All
-three resolve correctly.
+**Response.** Verified real (checked 2026-11-18 against publisher and index
+records — Scopus, UWC Scholar). Oseni, Omosanya, Mosuro, Saka, Oludipe, and
+Oshomoji, "Mapping persistent oil spill risk in the Niger Delta using Sentinel-1
+SAR and environmental exposure indicators," Marine Pollution Bulletin 229, 119674
+(2026), DOI 10.1016/j.marpolbul.2026.119674. We now engage it directly in Related
+Work (§2): it maps persistent risk in the target journal and reports that
+exposure extends beyond reported locations, and it inherits the
+coordinate-accuracy assumption we test. We also verified Adebangbe et al. (2025b)
+(Int. J. Digital Earth 18(1), 2448218; accepted 24 Dec 2024, published online
+6 Jan 2025, so the DOI carries 2024 and the citation year 2025 is the publication
+year) and O'Farrell et al. (2025) (Remote Sensing 17(3), 358). All three resolve
+correctly.
 
 ### E22. What does "weak supervision" concretely mean here? [Major]
 
