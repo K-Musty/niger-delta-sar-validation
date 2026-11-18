@@ -20,7 +20,7 @@ import config  # noqa: E402
 
 CAND_CSV = config.DATA_INTERIM / "anomaly_candidates.csv"
 INSP_CSV = config.DATA_INTERIM / "inspection_done.csv"
-OUT_PNG  = PROJECT_ROOT / "figures" / "figure_2_distance_vs_time.png"
+OUT_PNG  = PROJECT_ROOT / "figures" / "figure_4_distance_vs_time.png"
 OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
 
 
@@ -66,7 +66,7 @@ def main():
                label="Incident date")
     ax.set_xlabel("Days after reported incident date")
     ax.set_ylabel("Distance to nearest candidate anomaly (m)")
-    ax.set_title("Figure 2 — Distance from NOSDRA coordinate to nearest SAR anomaly candidate")
+    ax.set_title("Distance from reported coordinate to nearest SAR anomaly candidate")
     ax.legend(loc="upper right", fontsize=8, framealpha=0.9)
     ax.grid(alpha=0.3)
     plt.tight_layout()

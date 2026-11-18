@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+import pandas as pd
+import numpy as np
+from scipy.stats import mannwhitneyu
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT))
+import config
+
+# Load
+cand = pd.read_csv(config.DATA_INTERIM / 'anomaly_candidates.csv')
+obs = pd.read_csv(config.DATA_INTERIM / 'observability_classes.csv')
+diff = pd.read_csv(config.DATA_INTERIM / 'per_acquisition_diff.csv')
+
+# 1. FIX TABLE 1 (Observability)
+obs['observability'] = obs['observability'].replace('UNOBSERVABLE_NO_SAR', 'UNOBSERVABLE_QC_FAILURE')
+
+print("--- CORRECTED TABLE 1: Observability Classes ---")
+print(obs['observability'].value_counts().to_string())
+print("\nTrue NO_SAR incidents (not in CSV): 4")
+
+# 2. MERGE AND STRATIFY
+# Note: obs uses 'sar_date', while cand/diff use 'target_date'
+cand = cand.merge(obs[['incident_id', 'sar_date', 'observability']], 
+                  left_on=['incident_id', 'target_date'], 
+                  right_on=['incident_id', 'sar_date'], 
+                  how='left')
+
+diff = diff.merge(obs[['incident_id', 'sar_date', 'observability']], 
+                  left_on=['incident_id', 'target_date'], 
+                  right_on=['incident_id', 'sar_date'], 
+                  how='left')
+
+cand['observability'] = cand['observability'].fillna('OTHER')
+diff['observability'] = diff['observability'].fillna('OTHER')
+
+strata = {
+    'All QC-passing': (diff, cand),
+    'Observable (OW+Swamp)': (diff[diff['observability'].isin(['OBSERVABLE_OPEN_WATER', 'OBSERVABLE_SWAMP'])], 
+                              cand[cand['observability'].isin(['OBSERVABLE_OPEN_WATER', 'OBSERVABLE_SWAMP'])]),
+    'Open water only': (diff[diff['observability'] == 'OBSERVABLE_OPEN_WATER'], cand[cand['observability'] == 'OBSERVABLE_OPEN_WATER']),
+    'Terrestrial': (diff[diff['observability'] == 'UNOBSERVABLE_TERRESTRIAL'], cand[cand['observability'] == 'UNOBSERVABLE_TERRESTRIAL']),
+    'Other (Low wind, rain, QC)': (diff[~diff['observability'].isin(['OBSERVABLE_OPEN_WATER', 'OBSERVABLE_SWAMP', 'UNOBSERVABLE_TERRESTRIAL'])], 
+                                   cand[~cand['observability'].isin(['OBSERVABLE_OPEN_WATER', 'OBSERVABLE_SWAMP', 'UNOBSERVABLE_TERRESTRIAL'])])
+}
+
+print("\n--- CORRECTED TABLE 2: Stratified Results ---")
+print(f"{'Stratum':<30} | {'Post Acq':>8} | {'Ctrl Acq':>8} | {'Post Clust':>10} | {'Ctrl Clust':>10} | {'Rate Ratio (95% CI)':>20} | {'MW p-value':>10} | {'Median Dist (Post/Ctrl)':>25}")
+print("-" * 145)
+
+for name, (d, c) in strata.items():
+    post_acq = len(d[~d['pre_incident']])
+    ctrl_acq = len(d[d['pre_incident']])
+    
+    post_clust = len(c[~c['pre_incident']])
+    ctrl_clust = len(c[c['pre_incident']])
+    
+    post_rate = post_clust / post_acq if post_acq else 0
+    ctrl_rate = ctrl_clust / ctrl_acq if ctrl_acq else 0
+    ratio = post_rate / ctrl_rate if ctrl_rate else np.nan
+    
+    # Approx 95% CI for rate ratio
+    if post_clust > 0 and ctrl_clust > 0:
+        se = np.sqrt(1/post_clust + 1/ctrl_clust)
+        ci_low = np.exp(np.log(ratio) - 1.96*se)
+        ci_high = np.exp(np.log(ratio) + 1.96*se)
+        ci_str = f"{ratio:.2f} ({ci_low:.2f}-{ci_high:.2f})"
+    else:
+        ci_str = f"{ratio:.2f}" if post_clust > 0 else "undefined"
+    
+    # Mann-Whitney per stratum
+    post_dist = c[~c['pre_incident']]['distance_from_reported_m']
+    ctrl_dist = c[c['pre_incident']]['distance_from_reported_m']
+    
+    if len(post_dist) > 0 and len(ctrl_dist) > 0:
+        _, p_val = mannwhitneyu(post_dist, ctrl_dist, alternative='two-sided')
+    else:
+        p_val = np.nan
+    
+    med_post = post_dist.median() if len(post_dist) else np.nan
+    med_ctrl = ctrl_dist.median() if len(ctrl_dist) else np.nan
+    
+    print(f"{name:<30} | {post_acq:>8} | {ctrl_acq:>8} | {post_clust:>10} | {ctrl_clust:>10} | {ci_str:>20} | {p_val:>10.3f} | {med_post:>10.0f} / {med_ctrl:<10.0f}")
+
+# 3. SWAMP ONLY DIAGNOSTIC
+print("\n--- SWAMP ONLY (for abstract accuracy) ---")
+swamp_d = diff[diff['observability'] == 'OBSERVABLE_SWAMP']
+swamp_c = cand[cand['observability'] == 'OBSERVABLE_SWAMP']
+print(f"Post: {len(swamp_c[~swamp_c['pre_incident']])} clusters, {len(swamp_d[~swamp_d['pre_incident']])} acquisitions")
+print(f"Ctrl: {len(swamp_c[swamp_c['pre_incident']])} clusters, {len(swamp_d[swamp_d['pre_incident']])} acquisitions")

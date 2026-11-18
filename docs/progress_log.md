@@ -225,6 +225,9 @@ Unique acquisitions downloaded	230
 Total acquisition rows	262
 Mean acquisitions per incident	4.16
 Diff TIFs produced	199
+[SUPERSEDED 2026-10-12] This 199 reflects the pre-QC diff count. After the
+MIN_VALID_FRACTION = 0.95 filter was added to 07_per_acquisition_diff.py,
+the authoritative count is 178 (114 post + 64 control). See line 329ff.
 Incidents with diffs	62
 Median wind (sea cell)	4.03 m/s
 OBSERVABLE acquisitions (wind 3–12 m/s)	195
@@ -325,6 +328,15 @@ Thresholds (final):
     Minimum cluster mean darkness: 5.0 dB below image median
 
 Results:
+
+## [SUPERSEDED] Pre-QC pipeline output
+These numbers were produced by 07 before the QC filter was added.
+Do not cite them. The current authoritative numbers are:
+  diffs:   178 (114 post + 64 control)
+  clusters: 336 (235 post + 101 control)
+  rate ratio: 1.31x
+  p-value: 0.495
+
 Metric	Value
 Diff images processed	199
 Total candidate clusters	340
@@ -368,3 +380,26 @@ UNKNOWN_HABITAT	5
 UNOBSERVABLE_NO_SAR	4
 UNOBSERVABLE_RAIN	1
 Total	266
+
+---
+
+## Paper V2 (review response) — complete
+
+Addressed the academic review concerns and rewrote the manuscript as `paper_v2.md`
+for Int. J. Applied Earth Observation & Geoinformation.
+
+New analysis scripts:
+- `analysis/13_mixed_effects.py` — mixed-effects Poisson (GLMM with a random
+  intercept per incident, Laplace/MAP) as the primary rate analysis; GEE as a
+  cross-check; naive rate ratio kept for comparison. Replaces the naive Poisson
+  rate test. Result (all QC-passing): GLMM IRR 1.62 [1.28–2.06], p < 0.001;
+  GEE 1.54 [0.99–2.39], p = 0.057.
+- `analysis/14_sensitivity.py` — vectorized 5×3 grid (contrast 3–7 dB ×
+  cluster size 50–200 px). Spatial-mismatch finding stable across all 15 settings.
+- `analysis/15_time_gap.py` — incident-to-first-SAR gap (median 3 days, IQR 1–5).
+- `analysis/16_study_area_map.py` — study-area map (Figure 1).
+- `analysis/17_visual_mismatch.py` — Incident 142357 montage (Figure 3).
+
+Headline numbers carried into the paper: post median distance 1,972 m vs control
+1,848 m (Mann-Whitney p = 0.495); 4.7% of post clusters within 500 m vs 6.9% of
+controls (Fisher p = 0.43); injection recovery 20/20 (median 11.9 m).

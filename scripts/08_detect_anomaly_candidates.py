@@ -31,10 +31,10 @@ DIFF_CSV   = config.DATA_INTERIM / "per_acquisition_diff.csv"
 CANDIDATES = config.DATA_INTERIM / "candidates_flagged.csv"
 OUT_CSV    = config.DATA_INTERIM / "anomaly_candidates.csv"
 
-# --- Tighter detector parameters -------------------------------------
-CONTRAST_DB      = 5.0    # cluster must be at least this much darker than median
-MIN_CLUSTER_PX   = 100    # minimum cluster size (1 hectare at 10 m)
-MIN_MEAN_DARK_DB = 5.0    # cluster's mean must be at least this much darker than median
+# --- Detector parameters (from config.py) ---------------------------------
+CONTRAST_DB      = config.CONTRAST_DB
+MIN_CLUSTER_PX   = config.MIN_CLUSTER_PX
+MIN_MEAN_DARK_DB = config.MIN_MEAN_DARK_DB
 
 logging.basicConfig(
     level=logging.INFO,

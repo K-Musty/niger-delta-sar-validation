@@ -1,0 +1,29 @@
+{
+  "first_post_acquisition_gap_days": {
+    "median": 3.0,
+    "q25": 1.0,
+    "q75": 5.0,
+    "min": 0.0,
+    "max": 11.0,
+    "n": 57
+  },
+  "all_post_acquisition_gap_days": {
+    "median": 6.0,
+    "q25": 3.0,
+    "q75": 10.0,
+    "min": 0.0,
+    "max": 13.0,
+    "n": 114
+  },
+  "control_baseline_days_before": {
+    "median": 13.0,
+    "q25": 11.8,
+    "q75": 14.0,
+    "min": 8.0,
+    "max": 14.0,
+    "n": 64
+  },
+  "n_incidents_with_post_sar": 57,
+  "n_post_acquisitions": 114,
+  "n_control_acquisitions": 64
+}

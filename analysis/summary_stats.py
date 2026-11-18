@@ -97,6 +97,43 @@ def main():
         },
     }
 
+    # Mixed-effects Poisson regression (primary analysis), GLMM + GEE + naive.
+    me_path = config.DATA_OUTPUT / "mixed_effects_results.json"
+    if me_path.exists():
+        with open(me_path) as f:
+            summary["mixed_effects"] = json.load(f)
+
+    # Time gap between incident date and first post-incident acquisition.
+    tg_path = config.DATA_OUTPUT / "time_gap_stats.json"
+    if tg_path.exists():
+        with open(tg_path) as f:
+            summary["time_gap"] = json.load(f)
+
+    # Sensitivity analysis across contrast / cluster-size grid.
+    sens_path = config.DATA_OUTPUT / "sensitivity_analysis.csv"
+    if sens_path.exists():
+        sens = pd.read_csv(sens_path)
+        summary["sensitivity"] = {
+            "contrast_levels": sorted(sens["contrast_db"].unique().tolist()),
+            "cluster_levels": sorted(sens["min_cluster_px"].unique().tolist()),
+            "n_combinations": int(len(sens)),
+            "rate_ratio_range": [
+                round(float(sens["rate_ratio"].min()), 3),
+                round(float(sens["rate_ratio"].max()), 3),
+            ],
+            "median_dist_post_range_m": [
+                round(float(sens["median_dist_post_m"].min()), 0),
+                round(float(sens["median_dist_post_m"].max()), 0),
+            ],
+            "median_dist_ctrl_range_m": [
+                round(float(sens["median_dist_ctrl_m"].min()), 0),
+                round(float(sens["median_dist_ctrl_m"].max()), 0),
+            ],
+            "spatial_mismatch_stable_all_p_ns": bool(
+                sens["mann_whitney_p"].dropna().gt(0.05).all()
+            ),
+        }
+
     with open(OUT, "w") as f:
         json.dump(summary, f, indent=2)
 

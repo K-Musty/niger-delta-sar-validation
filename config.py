@@ -46,13 +46,13 @@ STAC_PROP_REL_ORBIT   = "sat:relative_orbit"
 STAC_PROP_POLAR       = "sar:polarizations"
 STAC_PROP_INCIDENCE   = "view:incidence_angle"
 
-# ── Change detection ──────────────────────────────────────────────────
+# ── Change detection (v2 — authoritative) ─────────────────────────────
 BASELINE_DAYS_BEFORE = (30, 60)
 SPILL_DAYS_AFTER     = 14
-ANOMALY_PERCENTILE   = 5
-MIN_ANOMALY_PIXELS   = 20
-MIN_VALID_FRACTION = 0.95   # reject TIFs with < 95% valid (finite) pixels
-MIN_CONTRAST_DB      = 3.0        # secondary filter: cluster ≥ 3 dB darker than median
+MIN_VALID_FRACTION   = 0.95   # reject TIFs with < 95% valid (finite) pixels
+CONTRAST_DB          = 5.0    # cluster must be ≥ this many dB darker than median
+MIN_CLUSTER_PX       = 100    # minimum cluster size (1 hectare at 10 m)
+MIN_MEAN_DARK_DB     = 5.0    # cluster mean must be ≥ this many dB darker than median
 
 # ── Environmental context (ERA5 / CDS) ───────────────────────────────
 ERA5_DATASET         = "reanalysis-era5-single-levels"

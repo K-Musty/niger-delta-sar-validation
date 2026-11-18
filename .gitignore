@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .env
 logs/*.log
+logs/runs/
 artifacts/
 data/raw/
 *.nc
