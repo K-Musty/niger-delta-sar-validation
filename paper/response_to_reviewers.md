@@ -41,7 +41,7 @@ post-incident cluster, we drew 500 uniform points in the 5 × 5 km AOI and
 measured the distance to the nearest detected cluster. The reported coordinate is
 1,438 m from the nearest cluster on average, which falls at the 43rd percentile
 of the null distribution (median 1,674 m, 5th-95th percentile 270-4,411 m). The
-coordinate is therefore no closer to a cluster than a random point, and we do not
+coordinate is therefore within the range expected for a random point, and we do not
 interpret it as carrying a usable spatial signal. It is reported in §3.7 and
 §4.3. We note this null is not spatially matched (see F24, and the reviewer's
 later comment), so we do not overstate the comparison.
@@ -90,7 +90,7 @@ difference, its CI, and a formal equivalence test.
 
 **Response.** Replaced "indistinguishable" with "did not differ detectably"
 throughout. We now report the median difference (+125 m, bootstrap 95% CI −96 to
-+476 m) and a two one-sided equivalence test: the distributions are equivalent at
++476 m) and a two one-sided equivalence test: the median difference is equivalent at
 a 500 m bound but not at 300 m. Power for a 500 m shift is 99.8 percent at the
 full-sample level, so the aggregate null is informative (contrary to the
 reviewer's concern). §3.7 and §4.3 updated.
@@ -214,7 +214,7 @@ aggregate signal toward terrestrial.
 classification, not of acquisition frequency: a terrestrial acquisition is always
 classed "unobservable terrestrial" regardless of wind, whereas open-water
 acquisitions are split into observable or low-wind. Per-incident acquisition
-counts are comparable (2.9 terrestrial, 3.3 open water, 3.6 swamp). We state this
+counts are comparable (3.6 terrestrial over 29 incidents, 3.7 open water over 29, 3.6 swamp over 7). We state this
 in §3.3 and confirm that the terrestrial stratum's high IRR is driven by 11
 control clusters, which we now flag as low-power and descriptive only.
 
