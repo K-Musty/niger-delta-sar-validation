@@ -1,0 +1,222 @@
+{
+  "guard": {
+    "n_clusters": 336,
+    "n_post_clusters": 235,
+    "n_ctrl_clusters": 101,
+    "post_median_distance_m": 1972.4,
+    "ctrl_median_distance_m": 1847.5,
+    "mann_whitney_p": 0.4951,
+    "max_observed_distance_m": 3354.2
+  },
+  "aoi_geometry": {
+    "half_width_m": 2500.0,
+    "area_km2": 25.0,
+    "corner_distance_m": 3535.5,
+    "max_observed_distance_m": 3354.2,
+    "note": "AOI is a 5x5 km square (2.5 km half-width); paper says 'radius'"
+  },
+  "A2_random_point_null": {
+    "obs_nearest_median_m": 1438.4,
+    "obs_nearest_n": 32,
+    "null_nearest_median_m": 1674.0,
+    "null_nearest_p05_m": 270.4,
+    "null_nearest_p95_m": 4411.0,
+    "obs_percluster_median_m": 1983.1,
+    "note": "obs_nearest = reported coord -> nearest cluster per incident; null = random point -> nearest cluster; obs_percluster is the paper's actual per-cluster metric"
+  },
+  "A3_CSR_expected_nearest": {
+    "csr_median_nearest_median_m": 1356.0,
+    "csr_median_nearest_mean_m": 1417.6,
+    "csr_median_nearest_range_m": [
+      402.8,
+      2348.6
+    ],
+    "formula": "median r = sqrt(ln2 / (pi * k / 25 km^2)) * 1000 m"
+  },
+  "B6_median_difference": {
+    "point_estimate_m": 124.9,
+    "bootstrap_ci95_lower_m": -95.9,
+    "bootstrap_ci95_upper_m": 476.2
+  },
+  "B6_tost_medians": {
+    "bound_300m": {
+      "ci90_lower": -60.6,
+      "ci90_upper": 414.4,
+      "equivalent": false
+    },
+    "bound_500m": {
+      "ci90_lower": -60.6,
+      "ci90_upper": 414.4,
+      "equivalent": true
+    },
+    "bound_1000m": {
+      "ci90_lower": -60.6,
+      "ci90_upper": 414.4,
+      "equivalent": true
+    }
+  },
+  "B8_stratum_sample_sizes": {
+    "All QC-passing": {
+      "post_n": 235,
+      "ctrl_n": 101,
+      "post_median_m": 1972.4,
+      "ctrl_median_m": 1847.5
+    },
+    "Observable (OW+Swamp)": {
+      "post_n": 129,
+      "ctrl_n": 52,
+      "post_median_m": 2007.5,
+      "ctrl_median_m": 1681.6
+    },
+    "Open water only": {
+      "post_n": 123,
+      "ctrl_n": 52,
+      "post_median_m": 1972.4,
+      "ctrl_median_m": 1681.6
+    },
+    "Terrestrial": {
+      "post_n": 52,
+      "ctrl_n": 11,
+      "post_median_m": 1762.0,
+      "ctrl_median_m": 1847.5
+    },
+    "Other": {
+      "post_n": 54,
+      "ctrl_n": 38,
+      "post_median_m": 2090.0,
+      "ctrl_median_m": 1986.0
+    }
+  },
+  "B8_power": {
+    "power_500m_shift_all": 0.998,
+    "power_500m_shift_terrestrial": 0.212,
+    "note": "power to reject the null of equal distance distributions when post is a 500 m location shift of control (empirical shape)"
+  },
+  "B7_mechanism": {
+    "corr_acq_vs_clusters": 0.213,
+    "spearman_acq_vs_clusters": 0.32,
+    "n_incidents": 57,
+    "note": "if positive, incidents with more acquisitions contribute more clusters, biasing the naive per-acquisition ratio downward"
+  },
+  "B9_overdispersion": {
+    "variance_to_mean_ratio": 9.397,
+    "poisson_glm_pearson_dispersion": 9.269,
+    "negbin_irr": 1.306,
+    "negbin_ci_lower": 0.889,
+    "negbin_ci_upper": 1.919,
+    "negbin_p": 0.1736,
+    "note": "dispersion > 1 indicates overdispersion; negative binomial cross-check relaxes the Poisson mean=variance assumption"
+  },
+  "D16_acquisitions_per_habitat": [
+    {
+      "habitat_group": "land",
+      "n_incidents": 26,
+      "n_acquisitions": 74,
+      "acq_per_incident": 2.85
+    },
+    {
+      "habitat_group": "open_water",
+      "n_incidents": 25,
+      "n_acquisitions": 82,
+      "acq_per_incident": 3.28
+    },
+    {
+      "habitat_group": "swamp",
+      "n_incidents": 5,
+      "n_acquisitions": 18,
+      "acq_per_incident": 3.6
+    },
+    {
+      "habitat_group": "unknown",
+      "n_incidents": 1,
+      "n_acquisitions": 4,
+      "acq_per_incident": 4.0
+    }
+  ],
+  "D19_states": {
+    "RIVERS": 13,
+    "BAYELSA": 13,
+    "DELTA": 11,
+    "ABIA": 11,
+    "IMO": 10,
+    "EDO": 6,
+    "AKWA IBOM": 3
+  },
+  "D17_volume": {
+    "n": 67,
+    "min_bbl": 50.0,
+    "median_bbl": 105.0,
+    "max_bbl": 5054.48,
+    "note": "volume is the NOSDRA-reported quantity used to filter >=50 bbl"
+  },
+  "D18_unknown_habitat": {
+    "n_incidents": 2,
+    "incident_ids": [
+      "32687",
+      "282326"
+    ]
+  },
+  "habitat_incident_level": {
+    "open_water": 29,
+    "land": 29,
+    "swamp": 7,
+    "unknown": 2
+  },
+  "F25_polarization": {
+    "VV,VH": 262
+  },
+  "F26_incidence_angle": {
+    "center_angle_deg": 39.04,
+    "range_deg": [
+      38.98,
+      39.1
+    ],
+    "note": "STAC view:incidence_angle is the scene-center angle; the IW swath spans ~29-46 deg"
+  },
+  "F29_first3days": {
+    "n_post_clusters": 84,
+    "n_post_images": 11,
+    "post_median_distance_m": 1861.3,
+    "ctrl_median_distance_m": 1847.5,
+    "mann_whitney_p": 0.9747,
+    "glmm_irr": {
+      "IRR": 2.045,
+      "CI_lower": 1.411,
+      "CI_upper": 2.963,
+      "p": 0.0002,
+      "n": 96,
+      "n_incidents": 51
+    }
+  },
+  "F30_min2post": {
+    "n_incidents_eligible": 45,
+    "n_acquisitions": 163,
+    "glmm_irr": {
+      "IRR": 1.515,
+      "CI_lower": 1.189,
+      "CI_upper": 1.932,
+      "p": 0.0008,
+      "n": 163,
+      "n_incidents": 45
+    },
+    "post_median_distance_m": 1981.3,
+    "ctrl_median_distance_m": 1848.2,
+    "mann_whitney_p": 0.4258
+  },
+  "A4_visual_inspection": {
+    "n_incidents": 67,
+    "n_with_verdict_spill": 0,
+    "n_no_spill": 67,
+    "n_patches_distribution": {
+      "0": 4,
+      "1": 1,
+      "2": 8,
+      "3": 7,
+      "4": 14,
+      "5": 32,
+      "8": 1
+    },
+    "n_incidents_with_0_patches": 4,
+    "note": "verdict empty for all -> 0 coherent spill signatures; n_patches counts incidental dark patches (channels etc.), not spills"
+  }
+}
